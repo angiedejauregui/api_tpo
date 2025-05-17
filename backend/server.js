@@ -15,7 +15,7 @@ app.use(cors());
 dotenv.config();
 
 app.use(usersRoutes);
-app.use("/auth", authRoutes);
+app.use("/auths", authRoutes);
 
 app.listen(PORT, () => {
   connectDB();

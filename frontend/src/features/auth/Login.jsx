@@ -13,7 +13,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loading, error, user } = useSelector((state) => state.auth);
+  const { loading, error, message } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
     setInputs({
@@ -31,10 +31,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (message === 'Inicio de sesión exitoso') {
       navigate("/");
     }
-  }, [user]);
+  }, [message]);
 
   return (
     <>
@@ -59,6 +59,7 @@ const Login = () => {
             placeholder="Contraseña"
             autoComplete="current-password"
           />
+          <a href="" onClick={() => navigate('/forgot-password')} className="forgot-password-link">Olvide mi contraseña</a>
           <button type="submit">
             {loading ? "Cargando..." : "Iniciar sesion"}
           </button>

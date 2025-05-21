@@ -24,11 +24,12 @@
   }
   
   h2 {
-    font-size: 2.2rem;
+    font-size: 2.1rem;
     font-weight: 900;
     color: var(--text-color);
     margin: 0;
     margin-bottom: 1rem;
+    line-height: 1.2;
   }
 
   .description {
@@ -60,6 +61,20 @@
     background-color: var(--white-color);
     color: #101010;
   }
+
+  .forgot-password-link, .resend-code-link {
+    font-size: 14px;
+    display: block;
+    color: #5208FF;
+  }
+
+  .forgot-password-link {
+    text-align: right;
+  }
+
+  .resend-code-link {
+    text-align: left;
+  }
   
   button {
     width: 100%;
@@ -70,7 +85,7 @@
     border: 1px solid var(--black-color);
     border-radius: 12px;
     cursor: pointer;
-    margin: 1.8rem 0;
+    margin: 1rem 0;
   }
 
   .mensaje-registro {

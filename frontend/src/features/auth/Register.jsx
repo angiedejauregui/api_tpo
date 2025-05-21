@@ -20,7 +20,7 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { loading, error, user } = useSelector((state) => state.auth);
+  const { loading, error, message } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
     setInputs({
@@ -38,10 +38,10 @@ const Register = () => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (message === "Usuario registrado correctamente") {
       navigate("/login");
     }
-  }, [user]);
+  }, [message]);
 
   return (
     <>

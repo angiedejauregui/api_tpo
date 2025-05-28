@@ -1,0 +1,106 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.btns {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  border-radius: 100%;
+  background-color: var(--white-color);
+  height: 2.5rem;
+  width: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+svg {
+  cursor: pointer;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #000;
+}
+
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.initial {
+  width: 40px;
+  height: 40px;
+  color: #000;
+  font-size: 20px;
+  border: 1px solid #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* dropdown */
+.dropdown-menu {
+  position: absolute;
+  top: 4.4rem;
+  right: 1rem;
+  width: 350px;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  z-index: 10;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.profile-photo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-name {
+  font-weight: 400;
+  margin: 0;
+  color: #000;
+  text-align: start;
+  font-size: 1.4rem;
+}
+
+.profile-email {
+  font-size: 0.875rem;
+  color: #000;
+  margin: 0;
+  text-align: start;
+}
+
+.dropdown-button {
+  background: #1e1e1e;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 200;
+}
+
+.dropdown-button.clases {
+  text-align: center;
+}

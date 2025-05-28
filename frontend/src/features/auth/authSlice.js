@@ -97,6 +97,9 @@ const authSlice = createSlice({
         state.loading = false;
         state.message = null;
         state.email = null;
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        //localStorage.removeItem("recoveryEmail");
     },
   },
   extraReducers: (builder) => {
@@ -124,9 +127,9 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.user = action.payload.user;
         state.message = action.payload.message;
-        localStorage.setItem("user", JSON.stringify(action.payload));
+        localStorage.setItem("user", JSON.stringify(action.payload.user));
         localStorage.setItem("token", action.payload.token);
       })
       .addCase(loginUser.rejected, (state, action) => {

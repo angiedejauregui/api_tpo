@@ -67,13 +67,16 @@ const Navbar = () => {
       <header>
         <h1>FITMATCH</h1>
         <div className="btns">
+          {user && (
+            <>
           <div className="btn">
             <PiHouse className="icon" />
           </div>
           <div className="btn">
             <IoNotificationsOutline className="icon" />
           </div>
-
+</>
+          )}
           <div className="profile-btn" ref={buttonRef} onClick={toggleDropdown}>
             <div className="btn initial">
               {user ? initial : <BsPerson className="icon" />}
@@ -91,7 +94,7 @@ const Navbar = () => {
               />
             </svg>
           </div>
-
+          
           <ProfileMenu
             user={user}
             isOpen={isOpen}

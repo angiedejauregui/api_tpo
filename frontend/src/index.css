@@ -19,6 +19,5 @@ body {
   font-family: "Poppins", sans-serif;
   background-color: var(--black-color);
   color: var(--white-color);
-  margin: 0 auto;
   text-align: center;
 }

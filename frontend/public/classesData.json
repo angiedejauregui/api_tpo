@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "instructorName": "Andrea Mendoza",
+    "rating": 4.0,
+    "reviews": 16,
+    "location": "Palermo (Presencial)",
+    "description": "Una práctica suave pero profunda que trabaja tu postura. Una práctica suave pero profunda que trabaja tu postura.",
+    "price": 10000,
+    "images": [
+      "/images/andrea.jpeg",
+      "/images/run.jpg"
+    ],
+    "category": "Running"
+  },
+  {
+    "id": 2,
+    "instructorName": "Florencia Ruiz",
+    "rating": 4.9,
+    "reviews": 18,
+    "location": "Núñez (Presencial)",
+    "description": "Una práctica suave pero profunda que trabaja tu postura...",
+    "price": 12000,
+    "images": [
+      "/images/flor.jpg",
+      "/images/run.jpg"
+    ],
+    "category": "Running"
+  },
+  {
+    "id": 3,
+    "instructorName": "Juan Amadeo",
+    "rating": 4.1,
+    "reviews": 8,
+    "location": "Monserrat (Online)",
+    "description": "Una práctica suave pero profunda que trabaja tu postura...",
+    "price": 10000,
+    "images": [
+      "/images/juan.jpeg",
+      "/images/run.jpg"
+    ],
+    "category": "Running"
+  }
+]

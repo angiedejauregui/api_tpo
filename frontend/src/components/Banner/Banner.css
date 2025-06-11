@@ -43,20 +43,24 @@
 .search-container {
   display: flex;
   align-items: center;
-  background-color: #E0FD11; /* color amarillo verdoso */
+  background-color: #E0FD11;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   padding: 0 1rem;
-  width: 300px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
   height: 56px;
+  min-width: 1000px;
 }
 
 .search-input {
   flex: 1;
+  width: 100%;
   background: transparent;
   border: none;
   outline: none;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   padding: 0.5rem;
   color: #000;
 }
@@ -71,7 +75,7 @@
 
 .search-icon,
 .filter-icon {
-  font-size: 1.2rem;
+  font-size: 1.9rem;
   color: #000;
   margin: 0 0.3rem;
 }

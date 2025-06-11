@@ -10,14 +10,15 @@ export default function Banner () {
                 <form className="search-form" action="" method="get">
                     <fieldset>
                         <div className="search-container">
-                            <span className="search-icon">🔍</span>
+                            <span class="material-symbols-outlined search-icon">search</span>
                             <input
                             type="text"
                             name="Search"
                             id="Search"
                             placeholder="Buscar"
+                            className="search-input"
                             />
-                            <span className="filter-icon">⚙️</span>
+                            <span class="material-symbols-outlined filter-icon">filter_alt</span>
                         </div>
                     </fieldset>
                 </form>

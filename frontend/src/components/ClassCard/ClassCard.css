@@ -1,0 +1,63 @@
+.class-card {
+    background-color: #000;
+    color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 500px;
+}
+
+.class-card__images {
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.class-card__images img {
+    width: 50%;
+    object-fit: cover;
+    height: 230px;
+}
+
+.class-card__category {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: white;
+    color: black;
+    padding: 0.2rem 0.5rem;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.class-card__info {
+    padding-top: 0.5rem;
+    text-align: left;
+}
+
+.class-card__name {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.class-card__rating {
+    font-size: 0.9rem;
+    color: #ffd700;
+}
+
+.class-card__location,
+.class-card__description,
+.class-card__price {
+    font-size: 0.85rem;
+    margin-top: 0.2rem;
+}
+
+.class-card__description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

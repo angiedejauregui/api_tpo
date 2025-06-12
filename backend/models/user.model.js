@@ -12,6 +12,11 @@ const userSchema = new mongoose.Schema({
     enum: ['Cliente', 'Entrenador'],
     required: true
   },
+  cvu: { type: String }, // requerido solo para entrenadores
+  profileImage: {
+    type: String,
+    default: "https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg"
+  },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
 }, { timestamps: true });

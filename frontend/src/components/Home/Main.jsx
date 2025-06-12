@@ -8,7 +8,6 @@ export default function Main() {
         <>
             <Banner />
             <ClassGallery />
-            <h1>Hola</h1>
         </>
     );
 }

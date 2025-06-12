@@ -2,10 +2,14 @@ const mongoose = require("mongoose");
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 
-const registerUser = async ( {name, lastName, phone, birthDate, email, password, confirmPassword, role} ) => {
+const registerUser = async ( {name, lastName, phone, birthDate, email, password, confirmPassword, role, cvu} ) => {
 
   if (!name || !lastName || !phone || !birthDate || !email || !password || !confirmPassword || !role) {
     throw new Error('Todos los campos son obligatorios');   
+  }
+
+  if (role === 'Entrenador' && !cvu) {
+    throw new Error('El CVU es obligatorio para entrenadores');
   }
     
   const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
@@ -31,7 +35,8 @@ const registerUser = async ( {name, lastName, phone, birthDate, email, password,
         birthDate,
         email,
         password: hashedPassword,
-        role
+        role,
+        ...(role === 'Entrenador' && { cvu })
     });
     await newUser.save();
     return newUser;

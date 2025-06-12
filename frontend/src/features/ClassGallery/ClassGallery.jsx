@@ -4,13 +4,27 @@ import "./ClassGallery.css";
 
 export default function ClassGallery() {
     const [classesData, setClassesData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch("/classesData.json")
-            .then(response => response.json())
-            .then(data => setClassesData(data))
-            .catch(error => console.error("Error al cargar el JSON:", error));
+        fetch("http://localhost:5000/api/v1/services")
+            .then((response) => {
+                if (!response.ok) throw new Error("Error al cargar clases");
+                return response.json();
+            })
+            .then((data) => {
+                setClassesData(data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                setError(error.message);
+                setLoading(false);
+            });
     }, []);
+
+    if (loading) return <p>Cargando clases...</p>;
+    if (error) return <p>{error}</p>;
 
     return (
         <section className="class-gallery">

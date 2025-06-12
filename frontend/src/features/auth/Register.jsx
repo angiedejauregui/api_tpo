@@ -15,6 +15,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
     role: "Cliente",
+    cvu: "",
   });
 
   const navigate = useNavigate();
@@ -127,6 +128,18 @@ const Register = () => {
               />
               Entrenador
             </label>
+            {inputs.role === "Entrenador" && (
+              <label htmlFor="cvu">
+                <input
+                  type="text"
+                  id="cvu"
+                  name="cvu"
+                  placeholder="CVU"
+                  value={inputs.cvu}
+                  onChange={(e) => handleChange(e)}
+                />
+              </label>
+            )}
           </div>
           <button className="submit" type="submit">
             {loading ? "Cargando..." : "Registrame"}

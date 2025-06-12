@@ -1,0 +1,54 @@
+.profile-card {
+  background-color: #1e1e1e;
+  color: white;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.profile-image img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.profile-details {
+  flex: 1;
+}
+
+.profile-details h2 {
+  margin: 0 0 5px 0;
+  font-size: 1.4rem;
+}
+
+.profile-details p {
+  margin: 2px 0;
+  font-size: 0.9rem;
+}
+
+.cvu {
+  font-size: 0.85rem;
+  color: #cccccc;
+}
+
+.edit-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  background: none;
+  color: #aaa;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.edit-btn:hover {
+  color: white;
+}

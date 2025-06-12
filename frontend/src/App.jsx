@@ -7,6 +7,9 @@ import ResetPassword from "./features/auth/ResetPassword";
 import PasswordCreated from "./features/auth/PasswordCreated";
 import Login from "./features/auth/Login";
 import Register from "./features/auth/Register";
+import ProfilePage from "./pages/profile/ProfilePage";
+import ProfileUserView from "./features/profile/ProfileUserView";
+import ProfileTrainerView from "./features/profile/ProfileTrainerView";
 
 function App() {
   return (
@@ -19,6 +22,9 @@ function App() {
         <Route path="/verify-code" element={<VerifyCode />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/password-created" element={<PasswordCreated />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/user" element={<ProfileUserView />} />
+        <Route path="/profile/trainer" element={<ProfileTrainerView />} />
       </Routes>
     </>
   );

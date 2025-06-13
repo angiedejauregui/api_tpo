@@ -10,6 +10,7 @@ import Register from "./features/auth/Register";
 import ProfilePage from "./pages/profile/ProfilePage";
 import ProfileUserView from "./features/profile/ProfileUserView";
 import ProfileTrainerView from "./features/profile/ProfileTrainerView";
+import ClassPost from "./pages/ClassPost/ClassPost";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/profile/user" element={<ProfileUserView />} />
         <Route path="/profile/trainer" element={<ProfileTrainerView />} />
+        <Route path="/class/:id" element={<ClassPost />} />
       </Routes>
     </>
   );

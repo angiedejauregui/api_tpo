@@ -1,0 +1,86 @@
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  margin-top: 2rem;
+}
+
+.class-detail {
+  display: flex;
+  padding: 5rem;
+  color: white;
+  gap: 2rem;
+}
+
+.left-column {
+  flex: 2;
+  text-align: start;
+}
+
+.right-column {
+  flex: 1;
+  color: black;
+}
+
+.tags {
+  display: flex;
+  gap: 10px;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.tags .tag {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--primary-color);
+  display: inline-block;
+}
+
+.schedule ul {
+  list-style: none;
+}
+
+.schedule ul li {
+    display: flex;
+    gap: 10px;
+}
+
+.trainer-info,
+.price-box {
+  background-color: #f7f7f9;
+  padding: 1.5rem;
+  border-radius: 20px;
+}
+
+.trainer-photo {
+  width: 206px;
+  height: 210px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+.price-box {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta {
+  margin-top: 1.5rem;
+  padding: 12px;
+  background: var(--primary-color);
+  color: black;
+  font-weight: bold;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+}

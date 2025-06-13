@@ -1,5 +1,6 @@
 import React from "react";
 import './ClassCard.css';
+import { useNavigate } from "react-router-dom";
 
 export default function ClassCard({ data }) {
   const instructor = data.instructor;
@@ -17,8 +18,10 @@ export default function ClassCard({ data }) {
   const schedule = data.schedule?.[0];
   const price = data.price;
 
+  const navigate = useNavigate();
+
   return (
-    <article className="class-card">
+    <article className="class-card" onClick={() => navigate(`/class/${data._id}`)}>
       <div className="class-card__images">
         {profileImage && (
           <img src={profileImage} alt={`Perfil de ${instructorName}`} />

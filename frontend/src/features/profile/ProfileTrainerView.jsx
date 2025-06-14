@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ProfileCard from "../../components/profile/ProfileCard";
+import "./ProfileTrainerView.css";
+import MyClasses from "../../components/profile/trainerView/MyClasses";
 
 const ProfileTrainerView = () => {
   const [user, setUser] = useState(null);
@@ -21,9 +23,41 @@ const ProfileTrainerView = () => {
   if (!user) return <p>Cargando perfil...</p>;
 
   return (
-    <div className="trainer-profile">
-      <ProfileCard user={user} />
-      {/* componentes del entrenador (estadísticas, publicaciones, etc) */}
+    <div className="trainer-view-container">
+      <div className="profile-layout">
+
+        <div className="profile-card-section">
+          <ProfileCard user={user} />
+        </div>
+
+        <div className="profile-actions-section">
+          
+          <div className="full-width-button">
+            <button className="action-btn stats-btn" onClick={() => navigate("/profile/trainer/stats")}>
+              <span class="material-symbols-outlined" >analytics</span>
+              Estadísticas Del Perfil
+            </button>
+            <button className="action-btn " onClick={() => navigate("/profile/trainer/history")}>
+              <span className="material-symbols-outlined">schedule</span>
+              Archivo
+            </button>
+          </div>
+          
+          <div className="half-width-buttons">
+            <button className="action-btn new-post" onClick={() => navigate("")}>
+              <span className="material-symbols-outlined">publish</span>
+              Nueva Publicación
+            </button>
+            <button className="action-btn" onClick={() => navigate("")}>
+              Ver mi Semana
+            </button>
+          </div>
+          
+        </div>
+      </div>
+      
+      <MyClasses />
+
     </div>
   );
 };

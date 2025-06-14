@@ -1,54 +1,66 @@
 .profile-card {
-  background-color: #1e1e1e;
-  color: white;
+  background-color: #ffffffcd;
   border-radius: 12px;
-  padding: 20px;
+  padding: 50px 50px 0px 50px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  color: #000000;
+}
+
+.profile-header {
   display: flex;
   align-items: center;
-  gap: 20px;
-  position: relative;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  gap: 50px; 
 }
 
 .profile-image img {
-  width: 90px;
-  height: 90px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
   border-radius: 50%;
-  border: 2px solid white;
 }
 
 .profile-details {
+  text-align: left;
   flex: 1;
 }
 
-.profile-details h2 {
-  margin: 0 0 5px 0;
-  font-size: 1.4rem;
+.profile-details .divider {
+  width: 100%;
 }
 
 .profile-details p {
-  margin: 2px 0;
-  font-size: 0.9rem;
+  margin: 0.2rem 0;
 }
 
-.cvu {
-  font-size: 0.85rem;
-  color: #cccccc;
+.profile-details h2 {
+  font-size: 1.6rem;
+  font-weight: 500;
 }
 
 .edit-btn {
-  position: absolute;
   bottom: 10px;
   right: 15px;
   background: none;
-  color: #aaa;
+  color: #5a5757;
   border: none;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   transition: color 0.2s;
+  font-weight: 500;
+  text-align: right;
 }
 
 .edit-btn:hover {
-  color: white;
+  color: rgb(152, 152, 152);
+  transition: 0.2s;
+}
+
+.edit-icon{
+  font-size: 1.2rem;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid #000000;
+  margin: 10px 0;
 }

@@ -1,0 +1,61 @@
+.trainer-view-container {
+  padding: 2rem;
+  margin-left: 90px;
+  margin-right: 90px;
+}
+
+.profile-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.profile-card-section {
+  flex: 3.5;
+  max-width: 900px;
+}
+
+.profile-actions-section {
+  flex: 1.5;
+  display: flex;
+  flex-direction: column;
+}
+
+.action-btn {
+  border-radius: 8px;
+  background-color: #000000;
+  border-color: #E0FD11;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 1.2rem;
+}
+
+.action-btn:hover {
+  background-color: #242424;
+}
+
+.stats-btn{
+    height: 100px;
+}
+
+.new-post{
+    background-color: #c2d911;
+    color: #000000;
+    max-width: 200px;
+}
+.new-post:hover {
+  background-color: #a8b009c7;
+  transition: 0.2s;
+  color: white;
+}
+
+.half-width-buttons {
+  display: flex;
+  gap: 1rem;
+  height: 150px;
+}
+
+.half-width-buttons .action-btn {
+  flex: 1;
+}

@@ -12,12 +12,43 @@ exports.createClass = async (req, res) => {
 
 exports.getAllClasses = async (req, res) => {
   try {
-    const classes = await Class.find().populate("instructor", "name lastName email profileImage");
+    const {
+      category,
+      zone,
+      language,
+      mode,
+      minPrice,
+      maxPrice,
+      minRating,
+      maxRating
+    } = req.query;
+
+    const filter = {};
+
+    if (category) filter.category = { $in: category.split(",") };
+    if (zone) filter.zone = { $in: zone.split(",") };
+    if (language) filter.language = { $in: language.split(",") };
+    if (mode) filter.mode = { $in: mode.split(",") };
+
+    if (minPrice || maxPrice) {
+      filter.price = {};
+      if (minPrice) filter.price.$gte = parseFloat(minPrice);
+      if (maxPrice) filter.price.$lte = parseFloat(maxPrice);
+    }
+
+    if (minRating || maxRating) {
+      filter.rating = {};
+      if (minRating) filter.rating.$gte = parseFloat(minRating);
+      if (maxRating) filter.rating.$lte = parseFloat(maxRating);
+    }
+
+    const classes = await Class.find(filter).populate("instructor", "name lastName email profileImage");
     res.status(200).json(classes);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 exports.getClassById = async (req, res) => {
   try {

@@ -5,11 +5,14 @@ import { PiHouse } from "react-icons/pi";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { BsPerson } from "react-icons/bs";
 import ProfileMenu from "./ProfileMenu";
+import { useNavigate } from "react-router-dom";
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef();
   const buttonRef = useRef();
+  const navigate = useNavigate();
 
   const user = useSelector((state) => state.auth.user);
   const initial = user?.name?.charAt(0).toUpperCase();
@@ -65,11 +68,11 @@ const Navbar = () => {
   return (
     <>
       <header>
-        <h1>FITMATCH</h1>
+        <h1 className="title">FITMATCH</h1>
         <div className="btns">
           {user && (
             <>
-          <div className="btn">
+          <div className="btn" onClick={() => navigate("/")}>
             <PiHouse className="icon" />
           </div>
           <div className="btn">

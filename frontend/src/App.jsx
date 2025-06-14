@@ -1,5 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import ForgotPassword from "./features/auth/ForgotPassword";
 import VerifyCode from "./features/auth/VerifyCode";
@@ -17,13 +18,8 @@ function App() {
   return (
     <>
       <Routes>
+        <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/verify-code" element={<VerifyCode />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/password-created" element={<PasswordCreated />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route
           path="/profile/user"
@@ -49,6 +45,14 @@ function App() {
             </PrivateRoute>
           }
         />
+        </Route>
+        
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-code" element={<VerifyCode />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/password-created" element={<PasswordCreated />} />
       </Routes>
     </>
   );

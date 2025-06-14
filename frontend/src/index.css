@@ -7,6 +7,10 @@
   --text-color: #101010;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;

@@ -9,14 +9,18 @@ export default function MyClasses() {
   const [error, setError] = useState(null);
 
   const user = useSelector((state) => state.auth.user);
-  const userId = user?._id;
+  const userId = user?.id;
 
   useEffect(() => {
     if (!userId) return;
 
     const fetchMyClasses = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/v1/services?instructor=${user._id}`);
+        const res = await fetch(`http://localhost:5000/api/v1/services/by-instructor?instructor=${user.id}`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
         const data = await res.json();
         setMyClasses(data);
       } catch (err) {
@@ -34,7 +38,6 @@ export default function MyClasses() {
 
   return (
     <section className="my-classes">
-      <h2>Mis Clases</h2>
       {myClasses.length === 0 ? (
         <p>No tenés clases publicadas todavía.</p>
       ) : (

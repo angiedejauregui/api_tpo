@@ -16,7 +16,7 @@ exports.getAllClasses = async (req, res) => {
       category,
       zone,
       language,
-      mode,
+      modality,
       minPrice,
       maxPrice,
       minRating,
@@ -28,7 +28,7 @@ exports.getAllClasses = async (req, res) => {
     if (category) filter.category = { $in: category.split(",") };
     if (zone) filter.zone = { $in: zone.split(",") };
     if (language) filter.language = { $in: language.split(",") };
-    if (mode) filter.mode = { $in: mode.split(",") };
+    if (modality) filter.modality = { $in: modality.split(",") };
 
     if (minPrice || maxPrice) {
       filter.price = {};
@@ -75,6 +75,18 @@ exports.deleteClass = async (req, res) => {
     const deletedClass = await Class.findByIdAndDelete(req.params.id);
     if (!deletedClass) return res.status(404).json({ error: "Clase no encontrada" });
     res.status(204).send();
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getClassesByInstructor = async (req, res) => {
+  try {
+    const { instructor } = req.query;
+    if (!instructor) return res.status(400).json({ error: "Falta el ID del instructor" });
+
+    const classes = await Class.find({ instructor }).populate("instructor");
+    res.status(200).json(classes);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import ClassCard from "../../ClassCard/ClassCard";
+import TrainerClassCard from "./TrainerClassCard";
 import "./MyClasses.css";
 
 export default function MyClasses() {
@@ -43,7 +43,7 @@ export default function MyClasses() {
       ) : (
         <div className="class-grid">
           {myClasses.map((classItem) => (
-            <ClassCard key={classItem._id} data={classItem} />
+            <TrainerClassCard key={classItem._id} data={classItem} />
           ))}
         </div>
       )}

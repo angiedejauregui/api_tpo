@@ -1,0 +1,85 @@
+.class-card {
+  background-color: #000;
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 500px;
+}
+
+.class-card__images img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.class-card__category {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 2rem;
+  color: white;
+  position: relative;
+}
+
+.class-card__day {
+  font-size: 1.9rem;
+  color: #ccc;
+  margin-left: 1.5rem;
+}
+
+.class-card__info {
+  padding-top: 1rem;
+  text-align: left;
+}
+
+.class-card__time {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.3rem;
+  color: #ffffff;
+}
+
+.class-card__actions {
+  margin-top: 0.7rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.class-card__actions button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #000000;
+  color: white;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: 0.5px solid;
+  border-color: white;
+}
+
+.class-card__actions button:hover {
+  background-color: #444;
+  transition: 0.2s;
+}
+
+.dots-button {
+  position: absolute;
+  margin-top: 0%;
+  right: 0px;
+  background: rgba(0, 0, 0, 0.776);
+  border-radius: 0px 10px 0px 15px;
+  max-width: 40px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  z-index: 2;
+  padding-bottom: 0%;
+}

@@ -29,7 +29,7 @@ export default function Banner({ filters, clearFilter, onOpenFilter }) {
     return (
       <div className="filter-tags">
         {tags.map((tag, i) => (
-          <span key={i} className="tag">
+          <span key={i} className="filter-tag">
             <button onClick={() => clearFilter(tag.key, tag.value)}>×</button>
             {tag.label}
           </span>

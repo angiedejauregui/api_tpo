@@ -112,7 +112,7 @@
   justify-content: center;
 }
 
-.tag {
+.filter-tag {
   background-color: #D9D9D9;
   color: #000;
   border-radius: 10px;
@@ -124,7 +124,7 @@
   margin: 0;
 }
 
-.tag button {
+.filter-tag button {
   border: none;
   background: transparent;
   font-weight: bold;

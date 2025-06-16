@@ -102,3 +102,35 @@
   box-shadow: 0 0 0 1px rgba(212, 216, 149, 0.879);
 }
 */
+
+
+
+.filter-tags {
+  margin-top: 1rem;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.tag {
+  background-color: #D9D9D9;
+  color: #000;
+  border-radius: 10px;
+  padding: 0px 10px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+}
+
+.tag button {
+  border: none;
+  background: transparent;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  font-weight: 300;
+  font-size: 1.8rem;
+}

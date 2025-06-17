@@ -14,11 +14,6 @@ const [error, setError] = useState(null);
 
 
   useEffect(() => {
-    // axios.get(`/api/classes/${id}`)
-    //   .then(res => setClassData(res.data))
-    //   .catch(err => console.error(err));
-    
-      
        fetch(`http://localhost:5000/api/v1/services/${id}`)
             .then((response) => {
                 if (!response.ok) throw new Error("Error al cargar clases");

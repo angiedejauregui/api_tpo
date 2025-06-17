@@ -12,7 +12,7 @@ const ClassInfo = ({ trainer, price }) => {
         <h3>
           {trainer.name} {trainer.lastName}
         </h3>
-        {/* <p>{trainer.bio}</p> */}
+        <p>{trainer.descripcion}</p>
       </div>
       <div className="price-box">
         <p>Precio de la Clase:</p>

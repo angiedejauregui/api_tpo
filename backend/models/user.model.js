@@ -17,6 +17,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg"
   },
+  description: { type: String },
+  averageRating: { type: Number, default: 0 },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
 }, { timestamps: true });

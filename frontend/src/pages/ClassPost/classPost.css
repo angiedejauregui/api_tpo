@@ -84,3 +84,46 @@ h4 {
   width: 100%;
   cursor: pointer;
 }
+
+
+
+.opinions {
+  color: white;
+  padding: 2rem 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.opinions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.opinions-header h4 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.opinions-average {
+  font-weight: 500;
+}
+
+.review-card {
+  border: 1px solid var(--primary-color);
+  border-radius: 20px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.stars {
+  color: #f5c518;
+}

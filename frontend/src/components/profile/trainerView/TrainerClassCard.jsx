@@ -23,8 +23,8 @@ export default function TrainerClassCard({ data }) {
   };
 
   return (
-    <article className="class-card">
-      <div className="class-card__images">
+    <article className="trainer-class-card">
+      <div className="trainer-class-card__images">
         <button className="dots-button" onClick={handleOptions}>
           <span className="material-symbols-outlined">more_vert</span>
         </button>
@@ -38,17 +38,17 @@ export default function TrainerClassCard({ data }) {
         )}
       </div>
 
-      <div className="class-card__info">
+      <div className="trainer-class-card__info">
         {category && (
-          <span className="class-card__category">{category}</span>
+          <span className="trainer-class-card__category">{category}</span>
         )}
 
         {schedule?.day && (
-          <span className="class-card__day">{schedule.day}</span>
+          <span className="trainer-class-card__day">{schedule.day}</span>
         )}
 
         {schedule && (
-          <div className="class-card__time">
+          <div className="trainer-class-card__time">
             <span className="material-symbols-outlined">schedule</span>
             <span>
               {schedule.from} - {schedule.to || ""}
@@ -56,7 +56,7 @@ export default function TrainerClassCard({ data }) {
           </div>
         )}
 
-        <div className="class-card__actions">
+        <div className="trainer-class-card__actions">
           <button onClick={handleOpenDrive}>
             <span className="material-symbols-outlined">folder</span> Ver archivos
           </button>

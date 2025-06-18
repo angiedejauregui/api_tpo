@@ -1,4 +1,4 @@
-.class-card {
+.trainer-class-card {
   background-color: #000;
   color: white;
   padding: 1rem;
@@ -8,7 +8,7 @@
   max-width: 500px;
 }
 
-.class-card__images img {
+.trainer-class-card__images img {
   width: 100%;
   height: 230px;
   object-fit: cover;
@@ -16,7 +16,7 @@
   border-radius: 10px;
 }
 
-.class-card__category {
+.trainer-class-card__category {
   font-weight: bold;
   text-transform: uppercase;
   font-size: 2rem;
@@ -24,18 +24,18 @@
   position: relative;
 }
 
-.class-card__day {
+.trainer-class-card__day {
   font-size: 1.9rem;
   color: #ccc;
   margin-left: 1.5rem;
 }
 
-.class-card__info {
+.trainer-class-card__info {
   padding-top: 1rem;
   text-align: left;
 }
 
-.class-card__time {
+.trainer-class-card__time {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -43,14 +43,14 @@
   color: #ffffff;
 }
 
-.class-card__actions {
+.trainer-class-card__actions {
   margin-top: 0.7rem;
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
 }
 
-.class-card__actions button {
+.trainer-class-card__actions button {
   flex: 1;
   display: flex;
   align-items: center;
@@ -65,7 +65,7 @@
   border-color: white;
 }
 
-.class-card__actions button:hover {
+.trainer-class-card__actions button:hover {
   background-color: #444;
   transition: 0.2s;
 }

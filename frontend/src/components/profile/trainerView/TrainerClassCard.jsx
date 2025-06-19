@@ -44,7 +44,7 @@ export default function TrainerClassCard({ data }) {
         )}
 
         {schedule?.day && (
-          <span className="trainer-class-card__day">{schedule.day}</span>
+          <span className="trainer-class-card__day">- {schedule.day}</span>
         )}
 
         {schedule && (

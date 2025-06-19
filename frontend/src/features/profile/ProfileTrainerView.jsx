@@ -3,9 +3,11 @@ import axios from "axios";
 import ProfileCard from "../../components/profile/ProfileCard";
 import "./ProfileTrainerView.css";
 import MyClasses from "../../components/profile/trainerView/MyClasses";
+import NewClass from "../../components/profile/trainerView/NewClass";
 
 const ProfileTrainerView = () => {
   const [user, setUser] = useState(null);
+  const [showNewClass, setShowNewClass] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -44,7 +46,7 @@ const ProfileTrainerView = () => {
           </div>
           
           <div className="half-width-buttons">
-            <button className="action-btn new-post" onClick={() => navigate("")}>
+            <button className="action-btn new-post" onClick={() =>setShowNewClass(true)}>
               <span className="material-symbols-outlined">publish</span>
               Nueva Publicación
             </button>
@@ -58,6 +60,7 @@ const ProfileTrainerView = () => {
       
       <MyClasses />
 
+      {showNewClass && <NewClass onClose={() => setShowNewClass(false)} />}
     </div>
   );
 };

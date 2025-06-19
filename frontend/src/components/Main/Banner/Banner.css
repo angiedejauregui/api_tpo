@@ -80,6 +80,10 @@
   margin: 0 0.3rem;
 }
 
+.filter-icon{
+  cursor: pointer;
+}
+
 /*
 .search-form input {
   padding: 1rem 1.5rem;

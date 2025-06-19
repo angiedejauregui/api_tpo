@@ -1,0 +1,155 @@
+.new-class-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.new-class-modal {
+  background: #d9d9dd;
+  padding: 1.5rem;
+  border-radius: 12px;
+  position: relative;
+  max-width: 800px;
+  width: 100%;
+}
+
+.new-class-modal h2 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.form-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-left,
+.form-right {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.image-box {
+  border: 1px solid #000000;
+  border-radius: 12px;
+  text-align: center;
+  justify-content: center;
+  padding-top: 20%;
+  cursor: pointer;
+  min-height: 220px;
+}
+
+.image-box img {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.schedule-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.2rem;
+}
+
+.capacity-buttons {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.capacity-number{
+    color: #000000;
+}
+
+.capacity-icon{
+    color: #656565;
+}
+
+.form-field button {
+  padding: 0rem;
+  border: 1px solid #555;
+  color: #555;
+  font-weight: 400;
+  cursor: pointer;
+  max-width: 30px;
+  background-color: #dfdfdf;
+}
+
+.publish-btn {
+  background-color: #dfff00;
+  font-weight: bold;
+  padding: 0.3rem;
+  border-radius: 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field label {
+  color: #000;
+  text-align: left; 
+  font-size: 0.8rem;
+}
+
+
+.input-wrapper {
+  border: 1px solid #aaa;
+  border-radius: 10px;
+  padding-right: 1rem;
+  background-color: #fff;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.input-wrapper:focus-within {
+  border-color: #dfff00;
+}
+
+.input-wrapper input,
+.input-wrapper select,
+.input-wrapper textarea {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 0.8rem;
+  min-height: 35px;
+  background: transparent;
+  padding: 0.15rem 0.4rem;
+} 
+
+.input-wrapper textarea {
+    min-height: 100px;
+}
+
+.add-btn {
+    min-width: 100%;
+    font-size: 1rem;
+}

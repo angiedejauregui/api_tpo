@@ -2,7 +2,13 @@ const Class = require("../models/class.model");
 
 exports.createClass = async (req, res) => {
   try {
-    const newClass = new Class(req.body);
+    const imagePaths = req.files?.map((file) => `/images/${file.filename}`) || [];
+
+    const newClass = new Class({
+      ...req.body,
+      images: imagePaths
+    });
+
     await newClass.save();
     res.status(201).json(newClass);
   } catch (error) {

@@ -4,6 +4,7 @@ import "./NewClass.css";
 
 export default function NewClass({ onClose }) {
   const user = useSelector((state) => state.auth.user);
+
   const [formData, setFormData] = useState({
     category: "",
     description: "",
@@ -19,6 +20,8 @@ export default function NewClass({ onClose }) {
     to: "",
     image: ""
   });
+
+  const [imageFile, setImageFile] = useState(null);
 
   const [errors, setErrors] = useState({});
 
@@ -100,6 +103,45 @@ export default function NewClass({ onClose }) {
       alert("Error al publicar clase");
     }
   };
+  /*
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    const validSchedule = formData.schedule.filter(s => s.day && s.from && s.to && s.from < s.to);
+
+    const form = new FormData();
+    form.append("instructor", user.id);
+    form.append("category", formData.category);
+    form.append("description", formData.description);
+    form.append("price", formData.price);
+    form.append("modality", formData.modality);
+    form.append("language", formData.language);
+    form.append("location", formData.location);
+    form.append("capacity", formData.capacity);
+    form.append("attachmentLink", formData.attachmentLink);
+    form.append("schedule", JSON.stringify(validSchedule));
+
+    if (imageFile) {
+      form.append("images", imageFile); 
+    }
+
+    try {
+      await fetch("http://localhost:5000/api/v1/services", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: form
+      });
+      onClose();
+    } catch (err) {
+      alert("Error al publicar clase");
+    }
+  };
+  */
+
 
   return (
     <div className="new-class-overlay">
@@ -112,12 +154,26 @@ export default function NewClass({ onClose }) {
               <div className="form-left">
 
                   <div className="form-field">
+                    
                       <div className="input-wrapper image-box" onClick={handleImageClick}>
-                      {formData.image ? (
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => {
+                            const file = e.target.files[0];
+                            if (file) {
+                              setImageFile(file);
+                              const reader = new FileReader();
+                              reader.onloadend = () => {
+                                setFormData(prev => ({ ...prev, image: reader.result }));
+                              };
+                              reader.readAsDataURL(file);
+                            }
+                          }}
+                        />
+                        {formData.image && (
                           <img src={formData.image} alt="Vista previa" />
-                      ) : (
-                          <span className="material-symbols-outlined" style={{ fontSize: '4rem', color: "black" }}>add_photo_alternate</span>
-                      )}
+                        )}
                       </div>
                   </div>
 

@@ -50,16 +50,17 @@
 .image-box {
   border: 1px solid #000000;
   border-radius: 12px;
-  text-align: center;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  padding-top: 20%;
   cursor: pointer;
-  min-height: 220px;
+  height: 220px;
+  overflow: hidden;
 }
 
 .image-box img {
   max-width: 100%;
-  max-height: 200px;
+  max-height: 100%;
   object-fit: cover;
 }
 
@@ -69,10 +70,17 @@
   margin-bottom: 0.2rem;
 }
 
-.capacity-buttons {
+.capacity-wrapper {
   display: flex;
-  justify-content: end;
   align-items: center;
+  gap: 8px;
+}
+
+.capacity-buttons {
+  margin-left: auto;
+  display: flex;
+  gap: 1rem;
+  min-width: 80px;
 }
 
 .capacity-number{
@@ -81,6 +89,7 @@
 
 .capacity-icon{
     color: #656565;
+    margin-left: 10px;
 }
 
 .form-field button {
@@ -101,11 +110,6 @@
   font-size: 1rem;
   cursor: pointer;
   width: 100%;
-}
-
-.error {
-  color: red;
-  font-size: 0.9rem;
 }
 
 .form-field {
@@ -152,4 +156,26 @@
 .add-btn {
     min-width: 100%;
     font-size: 1rem;
+}
+
+.price-suffix {
+  margin-left: 8px;
+  padding-top: 15px;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.error-star {
+  color: red;
+  margin-left: 4px;
+  font-weight: bold;
+  font-size: medium;
+}
+
+.form-error {
+  color: red;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-align: center;
+  margin: 10px 0 0.5rem;
 }

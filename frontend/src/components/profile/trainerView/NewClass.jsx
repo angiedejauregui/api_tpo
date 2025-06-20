@@ -26,12 +26,13 @@ export default function NewClass({ onClose }) {
     const newErrors = {};
     const requiredFields = ["category", "description", "price", "modality", "language", "location"];
     requiredFields.forEach((field) => {
-      if (!formData[field]) newErrors[field] = "Campo obligatorio";
+      if (!formData[field]) newErrors[field] = true;
     });
-    if (!formData.schedule.length || formData.schedule.some(s => !s.day || !s.from || !s.to || s.from >= s.to)) {
-        newErrors.schedule = "Agregá al menos un horario válido";
+
+    const validSchedule = formData.schedule.filter(s => s.day && s.from && s.to && s.from < s.to);
+      if (validSchedule.length === 0) {
+        newErrors.schedule = true;
     }
-    if (formData.from && formData.to && formData.from >= formData.to) newErrors.time = "El horario debe ser válido";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -81,7 +82,7 @@ export default function NewClass({ onClose }) {
       location: formData.location,
       capacity: parseInt(formData.capacity),
       attachmentLink: formData.attachmentLink,
-      schedule: [{ day: "", from: "", to: "" }],
+      schedule: validSchedule,
       images: formData.image ? [formData.image] : []
     };
 
@@ -106,119 +107,153 @@ export default function NewClass({ onClose }) {
         <h2>Nueva Publicación</h2>
         <button className="close-btn" onClick={onClose}>✕</button>
         <form onSubmit={handleSubmit}>
-            <div className="form-columns">
-            
-                <div className="form-left">
-
-                    <div className="form-field">
-                        <div className="input-wrapper image-box" onClick={handleImageClick}>
-                        {formData.image ? (
-                            <img src={formData.image} alt="Vista previa" />
-                        ) : (
-                            <span className="material-symbols-outlined" style={{ fontSize: '4rem', color: "black" }}>add_photo_alternate</span>
-                        )}
-                        </div>
-                    </div>
-
-                    <div className="form-field">
-                        <label>Disponibilidad Horaria</label>
-                        {formData.schedule.map((item, index) => (
-                            <div key={index} className="input-wrapper schedule-row">
-                            <select
-                                name={`day-${index}`}
-                                value={item.day}
-                                onChange={(e) => handleScheduleChange(index, "day", e.target.value)}
-                            >
-                                <option value="">Día</option>
-                                {["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"].map((d) => (
-                                <option key={d} value={d}>{d}</option>
-                                ))}
-                            </select>
-                            <input
-                                type="time"
-                                value={item.from}
-                                onChange={(e) => handleScheduleChange(index, "from", e.target.value)}
-                            />
-                            <input
-                                type="time"
-                                value={item.to}
-                                onChange={(e) => handleScheduleChange(index, "to", e.target.value)}
-                            />
-                            <button type="button" onClick={() => handleRemoveSchedule(index)}>✕</button>
-                            </div>
-                        ))}
-                        <button className="add-btn" type="button" onClick={handleAddSchedule}>+ Agregar horario</button>
-                    </div>
-
-                
-                    <div className="form-field">
-                        <label>Capacidad</label>
-                        <div className="input-wrapper capacity-buttons">
-                        <span class=" capacity-icon material-symbols-outlined">accessibility_new</span>
-                        <span className="capacity-number">{formData.capacity}</span>
-                        <button type="button" onClick={() => setFormData(f => ({ ...f, capacity: Math.max(1, f.capacity - 1) }))}>-</button>
-                        <button type="button" onClick={() => setFormData(f => ({ ...f, capacity: f.capacity + 1 }))}>+</button>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div className="form-right">
-                    <div className="form-field">
-                        <label>Categoría</label>
-                        <div className="input-wrapper">
-                        <input name="category" value={formData.category} onChange={handleChange} />
-                        </div>
-                    </div>
-
-                    <div className="form-field">
-                        <label>Descripción</label>
-                        <div className="input-wrapper">
-                        <textarea name="description" value={formData.description} onChange={handleChange} />
-                        </div>
-                    </div>
-
-                    <div className="form-field">
-                        <label>Precio</label>
-                        <div className="input-wrapper">
-                        <input name="price" type="number" value={formData.price} onChange={handleChange} />
-                        </div>
-                    </div>
-
-                    <div className="form-field">
-                        <label>Modalidad</label>
-                        <div className="input-wrapper">
-                        <select name="modality" value={formData.modality} onChange={handleChange}>
-                            <option value="">Seleccionar</option>
-                            <option value="Presencial">Presencial</option>
-                            <option value="Virtual">Virtual</option>
-                        </select>
-                        </div>
-                    </div>
-
-                    <div className="form-field">
-                        <label>Idioma</label>
-                        <div className="input-wrapper">
-                        <input name="language" value={formData.language} onChange={handleChange} />
-                        </div>
-                    </div>
-
-                    <div className="form-field">
-                        <label>Ubicación</label>
-                        <div className="input-wrapper">
-                        <input name="location" value={formData.location} onChange={handleChange} />
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
+          <div className="form-columns">
           
-            <div className="form-field">
-                <label>Link a los archivos adjuntos de la clase</label>
-                <div className="input-wrapper">
-                <input name="attachmentLink" value={formData.attachmentLink} onChange={handleChange} />
-                </div>
+              <div className="form-left">
+
+                  <div className="form-field">
+                      <div className="input-wrapper image-box" onClick={handleImageClick}>
+                      {formData.image ? (
+                          <img src={formData.image} alt="Vista previa" />
+                      ) : (
+                          <span className="material-symbols-outlined" style={{ fontSize: '4rem', color: "black" }}>add_photo_alternate</span>
+                      )}
+                      </div>
+                  </div>
+
+                  <div className="form-field">
+                      <label>
+                        Disponibilidad Horaria
+                        {errors.category && <span className="error-star">*</span>}
+                      </label>
+                      {formData.schedule.map((item, index) => (
+                          <div key={index} className="input-wrapper schedule-row">
+                          <select
+                              name={`day-${index}`}
+                              value={item.day}
+                              onChange={(e) => handleScheduleChange(index, "day", e.target.value)}
+                          >
+                              <option value="" >Día</option>
+                              {["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"].map((d) => (
+                              <option key={d} value={d}>{d}</option>
+                              ))}
+                          </select>
+                          <input
+                              type="time"
+                              value={item.from}
+                              onChange={(e) => handleScheduleChange(index, "from", e.target.value)}
+                          />
+                          <input
+                              type="time"
+                              value={item.to}
+                              onChange={(e) => handleScheduleChange(index, "to", e.target.value)}
+                          />
+                          <button type="button" onClick={() => handleRemoveSchedule(index)}>✕</button>
+                          </div>
+                      ))}
+                      <button className="add-btn" type="button" onClick={handleAddSchedule}>+ Agregar horario</button>
+                  </div>
+
+              
+                  <div className="form-field">
+                      <label>Capacidad</label>
+                      <div className="input-wrapper capacity-wrapper">
+                        <span className="capacity-icon material-symbols-outlined">accessibility_new</span>
+                        <span className="capacity-number">{formData.capacity}</span>
+                        <div className="capacity-buttons">
+                          <button type="button" onClick={() => setFormData(f => ({ ...f, capacity: Math.max(1, f.capacity - 1) }))}>-</button>
+                          <button type="button" onClick={() => setFormData(f => ({ ...f, capacity: f.capacity + 1 }))}>+</button>
+                        </div>
+                      </div>
+                  </div>
+
+              </div>
+
+              <div className="form-right">
+                  <div className="form-field">
+                      <label>
+                        Categoría
+                        {errors.category && <span className="error-star">*</span>}
+                      </label>
+                      <div className="input-wrapper">
+                      <input name="category" value={formData.category} onChange={handleChange} />
+                      </div>
+                  </div>
+
+                  <div className="form-field">
+                      <label>
+                        Descripción
+                        {errors.category && <span className="error-star">*</span>}
+                      </label>
+                      <div className="input-wrapper">
+                      <textarea name="description" value={formData.description} onChange={handleChange} />
+                      </div>
+                  </div>
+
+                  <div className="form-field">
+                      <label>
+                        Precio
+                        {errors.category && <span className="error-star">*</span>}
+                      </label>
+                      <div className="input-wrapper">
+                      <input 
+                        name="price" 
+                        type="number" 
+                        value={formData.price} 
+                        onChange={handleChange}
+                        
+                      />
+                        <span className="price-suffix">/clase</span>
+                      </div>
+                  </div>
+
+                  <div className="form-field">
+                      <label>
+                        Modalidad
+                        {errors.category && <span className="error-star">*</span>}
+                      </label>
+                      <div className="input-wrapper">
+                      <select name="modality" value={formData.modality} onChange={handleChange}>
+                          <option value="">Seleccionar</option>
+                          <option value="Presencial">Presencial</option>
+                          <option value="Virtual">Virtual</option>
+                      </select>
+                      </div>
+                  </div>
+
+                  <div className="form-field">
+                      <label>
+                        Idioma
+                        {errors.category && <span className="error-star">*</span>}
+                      </label>
+                      <div className="input-wrapper">
+                      <input name="language" value={formData.language} onChange={handleChange} />
+                      </div>
+                  </div>
+
+                  <div className="form-field">
+                      <label>
+                        Ubicación
+                        {errors.category && <span className="error-star">*</span>}
+                      </label>
+                      <div className="input-wrapper">
+                      <input name="location" value={formData.location} onChange={handleChange} />
+                      </div>
+                  </div>
+                  
+              </div>
+          </div>
+        
+          <div className="form-field">
+            <label>Link a los archivos adjuntos de la clase</label>
+            <div className="input-wrapper">
+            <input name="attachmentLink" value={formData.attachmentLink} onChange={handleChange} />
             </div>
+          </div>
+          
+          {Object.keys(errors).length > 0 && (
+            <p className="form-error">Por favor completá los campos obligatorios marcados con *</p>
+          )}
 
           <button className="publish-btn" type="submit">Publicar</button>
         </form>

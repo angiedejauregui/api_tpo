@@ -35,7 +35,7 @@ const [error, setError] = useState(null);
 
   return (
     <div className="class-detail">
-      <div className="left-column">
+      <div className="left-column-class-post">
         <h1>{classData.category}</h1>
         <div className="tags">
           <span className="tag">{classData.modality}</span>
@@ -45,7 +45,7 @@ const [error, setError] = useState(null);
         <Schedule schedule={classData.schedule} />
         <Opinions rating={classData.rating} reviews={classData.reviews} />
       </div>
-      <div className="right-column">
+      <div className="right-column-class-post">
         <ClassInfo trainer={classData.instructor} price={classData.price} />
       </div>
     </div>

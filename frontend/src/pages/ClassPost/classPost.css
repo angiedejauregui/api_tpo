@@ -17,12 +17,12 @@ h4 {
   gap: 2rem;
 }
 
-.left-column {
+.left-column-class-post {
   flex: 2;
   text-align: start;
 }
 
-.right-column {
+.right-column-class-post {
   flex: 1;
   color: black;
 }

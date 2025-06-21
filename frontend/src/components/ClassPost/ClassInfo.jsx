@@ -1,9 +1,14 @@
 import React from "react";
 import "./ClassInfo.css";
+import { useNavigate, useParams } from "react-router-dom";
+import HireClass from "../../pages/HireClass/HireClass";
 
 const ClassInfo = ({ trainer, price }) => {
   const user = JSON.parse(localStorage.getItem("user"));
   /*const user = JSON.parse(localStorage.getItem("user"))*/
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   return (
     <div className="class-info">
       <div className="trainer-info">
@@ -23,18 +28,22 @@ const ClassInfo = ({ trainer, price }) => {
       </div>
       {/*<button className="cta">CONTRATAR CLASE</button>*/}
       {user?.role === "Cliente" ? (
-        <button className="cta">CONTRATAR CLASE</button>
+        <button className="cta" onClick={() => navigate(`/hire-class/${id}`)}>
+          CONTRATAR CLASE
+        </button>
       ) : (
         <div className="trainer-actions">
-          <button 
-            className="edit-btn" 
+          <button
+            className="edit-btn"
             onClick={() => console.log("Editar perfil")}
           >
             <span className="material-symbols-outlined edit-icon">edit</span>
             Editar
           </button>
           <button className="unpublish-btn">
-            <span className="material-symbols-outlined unpublish-icon">history</span>
+            <span className="material-symbols-outlined unpublish-icon">
+              history
+            </span>
             Despublicar
           </button>
         </div>

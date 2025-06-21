@@ -13,40 +13,49 @@ import ProfileUserView from "./features/profile/ProfileUserView";
 import ProfileTrainerView from "./features/profile/ProfileTrainerView";
 import ClassPost from "./pages/ClassPost/ClassPost";
 import PrivateRoute from "./PrivateRoute";
+import HireClass from "./pages/HireClass/HireClass";
 
 function App() {
   return (
     <>
       <Routes>
         <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route
-          path="/profile/user"
-          element={
-            <PrivateRoute>
-              <ProfileUserView />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/profile/trainer"
-          element={
-            <PrivateRoute>
-              <ProfileTrainerView />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/class/:id"
-          element={
-            <PrivateRoute>
-              <ClassPost />
-            </PrivateRoute>
-          }
-        />
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route
+            path="/profile/user"
+            element={
+              <PrivateRoute>
+                <ProfileUserView />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/profile/trainer"
+            element={
+              <PrivateRoute>
+                <ProfileTrainerView />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/class/:id"
+            element={
+              <PrivateRoute>
+                <ClassPost />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/hire-class/:id"
+            element={
+              <PrivateRoute>
+                <HireClass />
+              </PrivateRoute>
+            }
+          />
         </Route>
-        
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />

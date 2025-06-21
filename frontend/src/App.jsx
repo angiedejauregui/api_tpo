@@ -14,6 +14,7 @@ import ProfileTrainerView from "./features/profile/ProfileTrainerView";
 import ClassPost from "./pages/ClassPost/ClassPost";
 import PrivateRoute from "./PrivateRoute";
 import HireClass from "./pages/HireClass/HireClass";
+import TrainerProfileClientView from "./pages/profile/TrainerProfileClientView";
 
 function App() {
   return (
@@ -54,7 +55,17 @@ function App() {
               </PrivateRoute>
             }
           />
+
+        <Route
+            path="/trainer-profile-client-view/:id"
+            element={
+              <PrivateRoute>
+                <TrainerProfileClientView />
+              </PrivateRoute>
+            }
+          />
         </Route>
+
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

@@ -9,9 +9,17 @@ const ClassInfo = ({ trainer, price }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const handleTrainerClick = () => {
+    if (user?.role === "Cliente") {
+      navigate(`/trainer-profile-client-view/${trainer._id}`, {
+        state: { trainer } 
+      });
+    }
+  };
+
   return (
     <div className="class-info">
-      <div className="trainer-info">
+      <div className="trainer-info" onClick={handleTrainerClick} style={{ cursor: user?.role === "Cliente" ? "pointer" : "default" }}>
         <img
           src={trainer.profileImage}
           alt={trainer.name}

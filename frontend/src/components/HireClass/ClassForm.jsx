@@ -1,6 +1,6 @@
 import React, { use, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "./ClassForm.css"; 
+import "./ClassForm.css";
 
 const ClassForm = ({ schedule, onSelect, classData }) => {
   const [selected, setSelected] = useState("");
@@ -11,10 +11,13 @@ const ClassForm = ({ schedule, onSelect, classData }) => {
 
   const handleChange = (e) => {
     const selectedSlot = schedule[e.target.value];
-    setSelected(
-      `${selectedSlot.day}: ${selectedSlot.from} a ${selectedSlot.to}`
-    );
-    onSelect(selectedSlot);
+    const slotDate = {
+      day: selectedSlot.day,
+      from: selectedSlot.from,
+      to: selectedSlot.to,
+    };
+    setSelected(slotDate);
+    onSelect(slotDate);
   };
 
   const handleSubmit = () => {
@@ -26,12 +29,13 @@ const ClassForm = ({ schedule, onSelect, classData }) => {
     console.log("Mensaje:", message);
 
     navigate(`/payment/${id}`, {
-    state: {
-    selectedSlot: schedule.find((slot) => `${slot.day}: ${slot.from} a ${slot.to}` === selected),
-      classData,
-    },
-  });
-  }
+      state: {
+        selectedSlot: slotDate,
+        classData,
+        message,
+      },
+    });
+  };
 
   return (
     <div className="hire-class-form">
@@ -47,7 +51,6 @@ const ClassForm = ({ schedule, onSelect, classData }) => {
             </option>
           ))}
         </select>
-
       </div>
       <div>
         <h3>Mensaje</h3>

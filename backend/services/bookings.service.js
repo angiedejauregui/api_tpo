@@ -11,7 +11,7 @@ const createBookingService = async (data, clientId) => {
 
   const newBooking = new Booking({
     serviceId,
-    trainerId: service.trainerId,
+    trainerId: service.instructor,
     clientId,
     selectedSlots,
     message: mensaje,

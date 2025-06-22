@@ -5,21 +5,20 @@ import PaymentForm from "../../components/Payment/PaymentForm";
 import "./Payment.css";
 
 const Payment = () => {
-//   const { id } = useParams();
-//   const [classData, setClassData] = useState(null);
-//   const [selectedSlot, setSelectedSlot] = useState(null);
-  
+  //   const { id } = useParams();
+  //   const [classData, setClassData] = useState(null);
+  //   const [selectedSlot, setSelectedSlot] = useState(null);
 
-//   useEffect(() => {
-//     fetch(`http://localhost:5000/api/v1/services/${id}`)
-//       .then((res) => res.json())
-//       .then((data) => setClassData(data))
-//       .catch((err) => console.error("Error al cargar clase:", err));
-//   }, [id]);
+  //   useEffect(() => {
+  //     fetch(`http://localhost:5000/api/v1/services/${id}`)
+  //       .then((res) => res.json())
+  //       .then((data) => setClassData(data))
+  //       .catch((err) => console.error("Error al cargar clase:", err));
+  //   }, [id]);
 
-//   if (!classData) return <p>Cargando clase...</p>;
+  //   if (!classData) return <p>Cargando clase...</p>;
 
-const { state } = useLocation();
+  const { state } = useLocation();
 
   const classData = state?.classData;
   const selectedSlot = state?.selectedSlot;
@@ -40,7 +39,11 @@ const { state } = useLocation();
         />
       </div>
       <div className="payment-right">
-        <PaymentForm />
+        <PaymentForm
+          classData={classData}
+          selectedSlot={selectedSlot}
+          message={state.message}
+        />
       </div>
     </div>
   );

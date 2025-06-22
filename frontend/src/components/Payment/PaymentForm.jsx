@@ -1,23 +1,63 @@
 import React, { useState } from "react";
 import "./PaymentForm.css";
+import { useParams } from "react-router-dom";
 
-const PaymentForm = () => {
+const PaymentForm = ({ classData, selectedSlot, message }) => {
   const [cardNumber, setCardNumber] = useState("");
   const [name, setName] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
 
-  const handleSubmit = (e) => {
+  const { id } = useParams();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!cardNumber || !name || !expiry || !cvv) {
       alert("Por favor, complete todos los campos.");
       return;
     }
-    console.log({ cardNumber, name, expiry, cvv });
+
+    const bookingData = {
+      serviceId: id,
+      selectedSlots: [JSON.stringify(selectedSlot)], 
+      mensaje: message || "",
+      paymentInfo: {
+        cardNumber,
+        cardHolder: name,
+        expirationDate: expiry,
+        cvv,
+      },
+    };
+
+    console.log("Enviando al backend:", bookingData);
+
+    try {
+        
+      const res = await fetch("http://localhost:5000/api/v1/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // si usás JWT
+        },
+        body: JSON.stringify(bookingData),
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        alert("Reserva enviada con éxito");
+        // navigate("/perfil"); // o a donde quieras redirigir
+      } else {
+        alert(result.error || "Error al enviar la reserva");
+      }
+    } catch (err) {
+      console.error("Error en la solicitud:", err);
+      alert("Error en la solicitud");
+    }
   };
 
   return (
-    <form className="payment-form">
+    <form className="payment-form" onSubmit={handleSubmit}>
       <h2>Completar pago</h2>
       <div className="payment-info-box">
         Solo se cobrará si el entrenador acepta tu solicitud.
@@ -29,9 +69,23 @@ const PaymentForm = () => {
           type="text"
           placeholder="4242 4242 4242 4242"
           className="card-number"
+          value={cardNumber}
+          onChange={(e) => setCardNumber(e.target.value)}
         />
-        <input type="text" placeholder="MM/AA" className="card-date" />
-        <input type="text" placeholder="CVC" className="card-cvc" />
+        <input
+          type="text"
+          placeholder="MM/AA"
+          className="card-date"
+          value={expiry}
+          onChange={(e) => setExpiry(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="CVC"
+          className="card-cvc"
+          value={cvv}
+          onChange={(e) => setCvv(e.target.value)}
+        />
       </div>
 
       <label className="payment-label">Titular</label>
@@ -39,9 +93,11 @@ const PaymentForm = () => {
         type="text"
         className="full-width-input"
         placeholder="Como lo indica la tarjeta"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
 
-      <button className="submit-button" type="submit" onClick={handleSubmit}>
+      <button className="submit-button" type="submit">
         Enviar solicitud
       </button>
     </form>

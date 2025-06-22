@@ -1,10 +1,9 @@
 const Booking = require('../models/bookings.model');
-const Service = require('../models/services.model'); // Asegurate que sea el correcto
+const Service = require('../models/class.model'); 
 
 const createBookingService = async (data, clientId) => {
   const { serviceId, selectedSlots, mensaje, paymentInfo } = data;
 
-  // Buscar el servicio para obtener el trainerId
   const service = await Service.findById(serviceId);
   if (!service) {
     throw new Error("Servicio no encontrado");
@@ -12,7 +11,7 @@ const createBookingService = async (data, clientId) => {
 
   const newBooking = new Booking({
     serviceId,
-    trainerId: service.trainerId, // Este campo debe existir en el modelo del servicio
+    trainerId: service.trainerId,
     clientId,
     selectedSlots,
     message: mensaje,

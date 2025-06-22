@@ -30,7 +30,7 @@ const ClassForm = ({ schedule, onSelect, classData }) => {
 
     navigate(`/payment/${id}`, {
       state: {
-        selectedSlot: slotDate,
+        selectedSlot: selected,
         classData,
         message,
       },

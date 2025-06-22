@@ -3,6 +3,7 @@ import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 import './ProfileUserView.css';
 import ProfileCard from "../../components/profile/ProfileCard";
+import axios from "axios";
 
 
 const ProfileUserView = () => {
@@ -14,45 +15,54 @@ const ProfileUserView = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     
-    fetch("http://localhost:5000/api/v1/users/me", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .then((res) => res.json())
-      .then((data) => setUser(data))
-      .catch((err) => console.error("Error al obtener perfil", err));
-  }, []); 
+    axios
+      .get("http://localhost:5000/api/v1/users/me", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      })
+        .then((res) => setUser(res.data))
+        .catch((err) => console.error("Error al obtener perfil", err));
+    }, []); 
   
   useEffect(() => {
+    if (!user) return; 
     const token = localStorage.getItem("token");
-
-    fetch("http://localhost:5000/api/v1/bookings/my-bookings", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const allDates = data.flatMap(booking => 
-          booking.selectedSlots.map(dateStr => new Date(dateStr).toDateString())
-        );
-        setBookedDates(allDates);
-        setBookings(data);
+    console.log("user", user);
+    axios
+      .get("http://localhost:5000/api/v1/bookings/by-client", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
       })
-      .catch((err) => console.error("Error al cargar reservas", err));
-  }, []);
+       .then(res => {
+        const allDates = res.data.flatMap(b =>
+          b.selectedSlots.map(slotStr => {
+            const slot = JSON.parse(slotStr);
+            return slot.day.toLowerCase(); 
+          })
+        );
+        console.log("allDates", allDates);
+        setBookedDates(allDates);
+        setBookings(res.data);
+      })
+        .catch(err => {
+          console.error("Error al cargar reservas:", err);
+          setBookedDates([]);
+          setBookings([]);
+        });
+    }, [user]);
+
+  if (!user) return <p>Cargando perfil...</p>;
 
   const tileClassName = ({ date, view }) => {
-    if (view === 'month') {
-      const dateStr = date.toDateString();
-      if (bookedDates.includes(dateStr)) {
-        
-        return "highlight-booked-date";
-      }
-    }
-    return null;
-  };  
+    if (view !== "month") return null;
+    const dayName = date.toLocaleDateString("es-AR", { weekday: "long" }).toLowerCase();
+    console.log("bookedDates", bookedDates);
+    return bookedDates.includes(dayName)
+      ? "highlight-booked-date"
+      : null;
+  };
 
   const titleContent = ({ date, view }) => {
     if (view !== 'month') return null;
@@ -101,14 +111,14 @@ const ProfileUserView = () => {
         ) : (
           bookings.map((booking) => {
             const { _id, serviceId, selectedSlots, trainerId } = booking;
-            const diasYHoras = selectedSlots.map(slot => {
-              const date = new Date(slot);
-              return date.toLocaleDateString('es-AR', {
-                weekday: 'short',
-                hour: '2-digit',
-                minute: '2-digit'
-              });
-            }).join(" / ");
+            const diasYHoras = selectedSlots
+              .map(slotStr => {
+                const slot = JSON.parse(slotStr);
+                const date = new Date(slot.date);
+                return `${slot.day}: ${slot.from} - ${slot.to}`;
+              })
+              .join(" / ");
+
 
             return (
               <div className="profile-user-view-history-card" key={_id}>
@@ -117,7 +127,7 @@ const ProfileUserView = () => {
                   <h4>{serviceId?.category}</h4>
                   <p>Profe {trainerId?.name} {trainerId?.lastName}</p>
                   <p>{diasYHoras}</p>
-                  <a href={`/services/${serviceId._id}`}>Ver más</a>
+                  <a className="profile-user-view-btn-more" href={`/services/${serviceId._id}`}>Ver más</a>
                 </div>
               </div>
             );

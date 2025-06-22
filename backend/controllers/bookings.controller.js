@@ -25,14 +25,31 @@ const createBooking = async (req, res) => {
   }
 };
 
-const getBookingsById = async (req, res) => {
+const getBookingsByClientId = async (req, res) => {
+  try {
+    /*const { client } = req.query;*/
+    const userId = req.userId;
+    console.log("🔍 getBookingsById userId:", userId);
+    const populatedBookings = await Booking.find({ clientId: userId })
+    /*const populatedBookings = await Booking.find({ clientId: userId })*/
+      .populate("serviceId")
+      .populate("trainerId");
+
+    return res.status(200).json(populatedBookings);
+  } catch (error) {
+    console.error("getBookingsById ERROR:", error);
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+/*const getBookingsById = async (req, res) => {
   try {
     const bookings = await Booking.find({ clientId: req.userId });
-    if (!bookings || bookings.length === 0) {
+    /*if (!bookings || bookings.length === 0) {
       return res.status(404).json({ message: 'No se encontraron reservas' });
-    }
-
-    const validBookings = [];
+    }*/
+    /*console.log("bookings", bookings)*/
+    /*const validBookings = [];
 
     for (const booking of bookings) {
       const serviceExists = await Service.exists({ _id: booking.serviceId });
@@ -46,17 +63,20 @@ const getBookingsById = async (req, res) => {
     if (validBookings.length === 0) {
       return res.status(404).json({ message: 'Las reservas no tienen relaciones válidas' });
     }
-
-    const populatedBookings = await Booking.find({
+    const populatedBookings = await Booking.find({ clientId: userId })
+      .populate("serviceId", "category")
+      .populate("trainerId", "name lastName");
+    /*const populatedBookings = await Booking.find({
       _id: { $in: validBookings.map(b => b._id) }
     })
       .populate('serviceId', 'category')
       .populate('trainerId', 'name lastName');
 
-    res.status(200).json(populatedBookings);
+    return res.status(200).json(populatedBookings);
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener tus reservas' });
+    return res.status(500).json({ error: 'Error al obtener tus reservas' });
   }
 };
+*/
 
-module.exports = { createBooking, getBookingsById };
+module.exports = { createBooking, getBookingsByClientId };

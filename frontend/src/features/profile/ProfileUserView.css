@@ -72,15 +72,18 @@
   .profile-user-view-history-card {
     background: #0a0a0a;
     border: 1px solid #e0fd11;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr;
     gap: 1rem;
     padding: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
   }
   
   .profile-user-view-history-card img {
-    width: 100px;
+    width: 180px;
     height: 100px;
     object-fit: cover;
     border-radius: 8px;
@@ -89,7 +92,16 @@
   .profile-user-view-history-info {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+  }
+
+  .profile-user-view-history-info h4 {
+    margin: 0 0 0.25rem;
+    font-size: 1.25rem;
+  }
+  
+  .profile-user-view-history-info p {
+    margin: 0.125rem 0;
+    line-height: 1.4;
   }
 
   .profile-user-view-edit-button {
@@ -109,14 +121,20 @@
 
 /* Desactiva resaltar el día actual */
 .react-calendar__tile--now {
-  background: none !important;
-  font-weight: normal;
+  background: none !important;     
+  border: 2px solid #000 !important; /* esto para que se marque un recuadro negro */
+  border-radius: 0 !important;      
+  color: #000 !important;         
 }
 
 .highlight-booked-date {
   background-color: yellow;
   color: black !important;
-  border-radius: 50%;
+  border-radius: 0;
+}
+
+.profile-user-view-btn-more{
+  color: rgb(152, 152, 152);
 }
   
 

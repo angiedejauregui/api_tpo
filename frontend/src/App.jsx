@@ -18,6 +18,7 @@ import TrainerProfileClientView from "./pages/profile/TrainerProfileClientView";
 import Payment from "./pages/Payment/Payment";
 import ProfileClientEdit from "./pages/profile/ProfileClientEdit";
 import ProfileTrainerEdit from "./pages/profile/ProfileTrainerEdit";
+import SuccessScreen from "./pages/SuccessScreen/SuccessScreen";
 
 
 function App() {
@@ -64,6 +65,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Payment />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/success"
+            element={
+              <PrivateRoute>
+                <SuccessScreen />
               </PrivateRoute>
             }
           />

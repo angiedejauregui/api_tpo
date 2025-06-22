@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./PaymentForm.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const PaymentForm = ({ classData, selectedSlot, message }) => {
   const [cardNumber, setCardNumber] = useState("");
@@ -9,6 +9,7 @@ const PaymentForm = ({ classData, selectedSlot, message }) => {
   const [cvv, setCvv] = useState("");
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +20,7 @@ const PaymentForm = ({ classData, selectedSlot, message }) => {
 
     const bookingData = {
       serviceId: id,
-      selectedSlots: [JSON.stringify(selectedSlot)], 
+      selectedSlots: [JSON.stringify(selectedSlot)],
       mensaje: message || "",
       paymentInfo: {
         cardNumber,
@@ -29,15 +30,12 @@ const PaymentForm = ({ classData, selectedSlot, message }) => {
       },
     };
 
-    console.log("Enviando al backend:", bookingData);
-
     try {
-        
       const res = await fetch("http://localhost:5000/api/v1/bookings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // si usás JWT
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify(bookingData),
       });
@@ -45,8 +43,7 @@ const PaymentForm = ({ classData, selectedSlot, message }) => {
       const result = await res.json();
 
       if (res.ok) {
-        alert("Reserva enviada con éxito");
-        // navigate("/perfil"); // o a donde quieras redirigir
+        navigate("/success");
       } else {
         alert(result.error || "Error al enviar la reserva");
       }

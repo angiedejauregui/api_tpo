@@ -1,4 +1,5 @@
 import React from "react";
+import "./ClassDetails.css";
 
 const ClassDetails = ({
   image,

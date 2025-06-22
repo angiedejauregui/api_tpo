@@ -15,6 +15,7 @@ import ClassPost from "./pages/ClassPost/ClassPost";
 import PrivateRoute from "./PrivateRoute";
 import HireClass from "./pages/HireClass/HireClass";
 import TrainerProfileClientView from "./pages/profile/TrainerProfileClientView";
+import Payment from "./pages/Payment/Payment";
 
 function App() {
   return (
@@ -52,6 +53,14 @@ function App() {
             element={
               <PrivateRoute>
                 <HireClass />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/payment/:id"
+            element={
+              <PrivateRoute>
+                <Payment />
               </PrivateRoute>
             }
           />

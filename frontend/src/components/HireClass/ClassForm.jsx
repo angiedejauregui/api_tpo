@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import "./ClassForm.css"; 
 
-const ClassForm = ({ schedule, onSelect }) => {
+const ClassForm = ({ schedule, onSelect, classData }) => {
   const [selected, setSelected] = useState("");
   const [message, setMessage] = useState("");
+
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const selectedSlot = schedule[e.target.value];
@@ -11,6 +16,22 @@ const ClassForm = ({ schedule, onSelect }) => {
     );
     onSelect(selectedSlot);
   };
+
+  const handleSubmit = () => {
+    if (!selected) {
+      alert("Por favor, seleccione un horario.");
+      return;
+    }
+    console.log("Horario seleccionado:", selected);
+    console.log("Mensaje:", message);
+
+    navigate(`/payment/${id}`, {
+    state: {
+    selectedSlot: schedule.find((slot) => `${slot.day}: ${slot.from} a ${slot.to}` === selected),
+      classData,
+    },
+  });
+  }
 
   return (
     <div className="hire-class-form">
@@ -36,7 +57,7 @@ const ClassForm = ({ schedule, onSelect }) => {
           onChange={(e) => setMessage(e.target.value)}
         />
       </div>
-      <button>Solicitar</button>
+      <button onClick={handleSubmit}>Solicitar</button>
     </div>
   );
 };

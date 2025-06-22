@@ -1,0 +1,75 @@
+.payment-form {
+  background-color: white;
+  padding: 3rem;
+  border-radius: 10px;
+  width: 500px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+}
+
+.payment-form h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: start;
+}
+
+.payment-info-box {
+  background-color: #f1f1f1;
+  color: #333;
+  font-size: 0.9rem;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  text-align: start;
+}
+
+.payment-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: block;
+  color: #000;
+  text-align: start;
+}
+
+.payment-card-inputs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.payment-card-inputs .card-number {
+  flex: 2;
+}
+
+.payment-card-inputs .card-date,
+.payment-card-inputs .card-cvc {
+  flex: 1;
+}
+
+.payment-card-inputs input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.full-width-input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submit-button {
+  background-color: var(--primary-color);
+  color: black;
+  font-weight: 700;
+  padding: 0.8rem 1rem;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #d4eb00;
+}

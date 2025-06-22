@@ -33,7 +33,7 @@ const HireClass = () => {
         />
       </div>
       <div className="hire-class-right">
-        <ClassForm schedule={classData.schedule} onSelect={setSelectedSlot} />
+        <ClassForm schedule={classData.schedule} onSelect={setSelectedSlot} classData={classData} />
       </div>
     </div>
   );

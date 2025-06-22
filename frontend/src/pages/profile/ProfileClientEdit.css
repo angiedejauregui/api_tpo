@@ -1,0 +1,78 @@
+/* ProfileClientEdit.css */
+
+/* Overlay semitransparente que cubre toda la pantalla */
+.profile-client-edit-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1000;
+  }
+  
+  /* Tarjeta blanca/gris de la edición centrada */
+  .profile-client-edit-card {
+    background: #f2f2f2;
+    padding: 1em;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 360px;
+    max-height: 80vh;
+    overflow-y: auto;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Título centrado */
+  .profile-client-edit-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Formulario vertical */
+  .profile-client-edit-form label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  
+  /* Inputs a 100% del ancho del card */
+  .profile-client-edit-form input {
+    margin-top: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  /* Botón de confirmar grande y bloque */
+  .profile-client-edit-submit {
+    width: 100%;
+    padding: 0.75rem;
+    background: #e0fd11;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .profile-client-edit-submit:hover {
+    background: #d1e70e;
+  }
+  
+  /* Responsive: en pantallas muy chicas ajustamos padding */
+  @media (max-width: 480px) {
+    .profile-cleint-edit-card {
+      padding: 1rem;
+    }
+  }
+  

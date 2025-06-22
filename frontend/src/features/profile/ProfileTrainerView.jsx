@@ -36,7 +36,7 @@ const ProfileTrainerView = () => {
           
           <div className="full-width-button">
             <button className="action-btn stats-btn" onClick={() => navigate("/profile/trainer/stats")}>
-              <span class="material-symbols-outlined" >analytics</span>
+              <span className="material-symbols-outlined" >analytics</span>
               Estadísticas Del Perfil
             </button>
             <button className="action-btn " onClick={() => navigate("/profile/trainer/history")}>

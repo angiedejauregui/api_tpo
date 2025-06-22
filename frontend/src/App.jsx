@@ -16,6 +16,9 @@ import PrivateRoute from "./PrivateRoute";
 import HireClass from "./pages/HireClass/HireClass";
 import TrainerProfileClientView from "./pages/profile/TrainerProfileClientView";
 import Payment from "./pages/Payment/Payment";
+import ProfileClientEdit from "./pages/profile/ProfileClientEdit";
+import ProfileTrainerEdit from "./pages/profile/ProfileTrainerEdit";
+
 
 function App() {
   return (
@@ -74,6 +77,23 @@ function App() {
             }
           />
         </Route>
+
+        <Route
+        path="/profile/client/edit"
+        element={
+          <PrivateRoute>
+            <ProfileClientEdit />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/profile/trainer/edit"
+        element={
+          <PrivateRoute>
+            <ProfileTrainerEdit />
+          </PrivateRoute>
+        }
+      />
 
 
         <Route path="/login" element={<Login />} />

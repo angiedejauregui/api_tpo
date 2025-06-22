@@ -123,9 +123,11 @@
 /* Responsive para pantallas chicas */
 @media (max-width: 768px) {
   .profile-user-view-left-column,
-  .profile-user-view-right-column {
+  .profile-user-view-right-column{
     width: 100%;
+    flex-direction: column;
   }
+
 }
 
   .subtitle {

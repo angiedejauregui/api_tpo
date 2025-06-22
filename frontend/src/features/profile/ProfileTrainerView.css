@@ -59,3 +59,34 @@
 .half-width-buttons .action-btn {
   flex: 1;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .trainer-view-container {
+    margin: 0 1rem;
+    padding: 1rem;
+  }
+
+
+  .profile-layout {
+    flex-direction: column;
+  }
+
+  
+  .profile-card-section,
+  .profile-actions-section {
+    width: 100%;
+    max-width: none;
+  }
+
+  .new-post {
+    max-width: 100%;
+  }
+  .half-width-buttons {
+    flex-direction: column;
+    height: auto;
+  }
+  .half-width-buttons .action-btn {
+    width: 100%;
+  }
+}

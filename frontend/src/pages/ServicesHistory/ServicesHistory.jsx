@@ -17,15 +17,22 @@ export default function ServicesHistory() {
       .catch(console.error);
   }, []);
 
-  const cancelBooking = (id) => {
-    axios
-      .delete(`http://localhost:5000/api/v1/bookings/${id}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-      })
-      .then(() => {
-        setBookings(bs => bs.filter(b => b._id !== id));
-      })
-      .catch(console.error);
+  const cancelBooking = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      // En lugar de DELETE, enviamos un PATCH
+      const res = await axios.patch(
+        `http://localhost:5000/api/v1/bookings/${id}`,
+        { status: "Cancelada" },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      setBookings(bs =>
+        bs.map(b => b._id === id ? { ...b, status: res.data.status } : b)
+      );
+    } catch (err) {
+      console.error("Error al cancelar reserva:", err);
+    }
   };
 
   return (
@@ -40,7 +47,10 @@ export default function ServicesHistory() {
                 <span className={`services-history-status-badge services-history-status-${b.status.toLowerCase()}`}>
                     {b.status}
                 </span>
-                <button onClick={() => cancelBooking(b._id)} className="services-history-btn-cancel">
+                <button
+                    onClick={() => cancelBooking(b._id)}
+                    className="services-history-btn-cancel"
+                >
                     Cancelar
                 </button>
             </div>

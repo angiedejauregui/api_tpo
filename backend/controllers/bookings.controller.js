@@ -42,41 +42,40 @@ const getBookingsByClientId = async (req, res) => {
   }
 };
 
-/*const getBookingsById = async (req, res) => {
+const updateBooking = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
   try {
-    const bookings = await Booking.find({ clientId: req.userId });
-    /*if (!bookings || bookings.length === 0) {
-      return res.status(404).json({ message: 'No se encontraron reservas' });
-    }*/
-    /*console.log("bookings", bookings)*/
-    /*const validBookings = [];
+    const updated = await Booking.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
 
-    for (const booking of bookings) {
-      const serviceExists = await Service.exists({ _id: booking.serviceId });
-      const trainerExists = await User.exists({ _id: booking.trainerId });
-
-      if (serviceExists && trainerExists) {
-        validBookings.push(booking);
-      }
+    if (!updated) {
+      return res.status(404).json({ error: "Reserva no encontrada" });
     }
-
-    if (validBookings.length === 0) {
-      return res.status(404).json({ message: 'Las reservas no tienen relaciones válidas' });
-    }
-    const populatedBookings = await Booking.find({ clientId: userId })
-      .populate("serviceId", "category")
-      .populate("trainerId", "name lastName");
-    /*const populatedBookings = await Booking.find({
-      _id: { $in: validBookings.map(b => b._id) }
-    })
-      .populate('serviceId', 'category')
-      .populate('trainerId', 'name lastName');
-
-    return res.status(200).json(populatedBookings);
+    
+    res.json({
+      id:          updated._id,
+      serviceId:   updated.serviceId,
+      trainerId:   updated.trainerId,
+      clientId:    updated.clientId,
+      selectedSlots: updated.selectedSlots,
+      message:     updated.message,
+      status:      updated.status,
+      createdAt:   updated.createdAt
+    });
+    
   } catch (error) {
-    return res.status(500).json({ error: 'Error al obtener tus reservas' });
+    console.error("Error al actualizar reserva:", error);
+    res.status(500).json({ error: error.message });
   }
 };
-*/
 
-module.exports = { createBooking, getBookingsByClientId };
+module.exports = {
+  createBooking,
+  getBookingsByClientId,
+  updateBooking,
+};

@@ -19,6 +19,7 @@ import Payment from "./pages/Payment/Payment";
 import ProfileClientEdit from "./pages/profile/ProfileClientEdit";
 import ProfileTrainerEdit from "./pages/profile/ProfileTrainerEdit";
 import SuccessScreen from "./pages/SuccessScreen/SuccessScreen";
+import ServicesHistory from "./pages/ServicesHistory/ServicesHistory";
 
 
 function App() {
@@ -85,9 +86,18 @@ function App() {
               </PrivateRoute>
             }
           />
-        </Route>
-
         <Route
+        path="/history"
+        element={
+          <PrivateRoute>
+            <ServicesHistory />
+          </PrivateRoute>
+        }
+      />
+
+      </Route>
+      
+      <Route
         path="/profile/client/edit"
         element={
           <PrivateRoute>
@@ -95,6 +105,7 @@ function App() {
           </PrivateRoute>
         }
       />
+
       <Route
         path="/profile/trainer/edit"
         element={
@@ -103,7 +114,6 @@ function App() {
           </PrivateRoute>
         }
       />
-
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

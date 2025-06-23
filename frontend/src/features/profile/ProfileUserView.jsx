@@ -4,6 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import './ProfileUserView.css';
 import ProfileCard from "../../components/profile/ProfileCard";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 
 const ProfileUserView = () => {
@@ -28,7 +29,6 @@ const ProfileUserView = () => {
   useEffect(() => {
     if (!user) return; 
     const token = localStorage.getItem("token");
-    console.log("user", user);
     axios
       .get("http://localhost:5000/api/v1/bookings/by-client", {
         headers: {
@@ -42,7 +42,6 @@ const ProfileUserView = () => {
             return slot.day.toLowerCase(); 
           })
         );
-        console.log("allDates", allDates);
         setBookedDates(allDates);
         setBookings(res.data);
       })
@@ -58,7 +57,6 @@ const ProfileUserView = () => {
   const tileClassName = ({ date, view }) => {
     if (view !== "month") return null;
     const dayName = date.toLocaleDateString("es-AR", { weekday: "long" }).toLowerCase();
-    console.log("bookedDates", bookedDates);
     return bookedDates.includes(dayName)
       ? "highlight-booked-date"
       : null;
@@ -127,7 +125,9 @@ const ProfileUserView = () => {
                   <h4>{serviceId?.category}</h4>
                   <p>Profe {trainerId?.name} {trainerId?.lastName}</p>
                   <p>{diasYHoras}</p>
-                  <a className="profile-user-view-btn-more" href={`/services/${serviceId._id}`}>Ver más</a>
+                  <Link className="profile-user-view-btn-more" to="/history">
+                    Ver más
+                  </Link>
                 </div>
               </div>
             );

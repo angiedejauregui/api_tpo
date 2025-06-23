@@ -1,0 +1,214 @@
+.services-history-container {
+    padding: 1rem 1rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+.services-history-title{
+    color: white;
+}
+
+.services-history-card-detailed {
+    display: grid;
+    grid-template-columns: 1fr 200px;    /* columna izquierda flexible + derecha fija */
+    /*grid-template-rows: auto auto;*/      
+    grid-template-areas:
+      "info image"
+      "actions actions";
+    width: 65%;
+    gap: 1rem;
+    border: 1px solid #e0fd11;
+    border-radius: 8px;
+    padding: 1rem;
+    background: #0a0a0a;
+    margin: 0 auto 1.5rem;
+  }
+
+  .services-history-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .services-history-category{
+    color: white;
+    text-transform: uppercase;
+    font-size: x-large;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .services-history-status-badge {
+    margin: 0;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: smaller;
+    /*font-weight: bold;*/
+  }
+  .services-history-status-badge.services-history-status-pendiente { background: rgb(255, 115, 0); }
+  .services-history-status-badge.services-history-status-confirmada { background: rgb(0, 148, 0); }
+  .services-history-status-badge.services-history-status-cancelada { background: red; }
+  
+  .services-history-btn-cancel {
+    margin: 0;
+    background: #f81f07;
+    color: white;
+    border: none;
+    align-self: flex-start;
+    /*padding: 0.5rem 0.5rem;*/
+    border-radius: 4px;
+    /*cursor: pointer;*/
+    /*flex: 0 0 auto;*/
+    margin-left: auto;
+    /*width: 20%;*/
+    /*flex: 0 0 auto;*/       
+    width: auto;           
+    /*white-space: nowrap;*/
+    font-weight: normal;
+    font-size: smaller;
+    padding: 0.2rem 0.6rem;
+    
+  }
+  
+  .services-history-card-body {
+    display: flex;
+    align-items: center;
+    /*gap: 1rem;*/
+    flex-direction: row-reverse;
+  }
+  
+  /*.services-history-card-body img {
+    width: 100px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+  }*/
+.services-history-info {
+  grid-area: info;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.services-history-tags-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .services-history-slots p {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .services-history-tags {
+    display: inline-flex;
+    gap: 0.5rem;
+    font-size: small;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .services-history-tag {
+    border: 1px solid #e0fd11;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    background: transparent;
+  }
+
+  .services-history-rating {
+    margin-top: 0.1rem;
+    font-size: small;
+    color: #ffd700;
+  }
+
+  .services-history-image-wrapper {
+    grid-area: image;
+    text-align: center;
+  } 
+
+  .services-history-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .services-history-actions {
+    grid-area: actions;
+    display: flex;
+    /*gap: 0.5rem;*/
+    /*justify-content: space-between;*/
+    align-items: center;
+    /*width: 100%; */
+    margin-top: 0%;
+  }
+
+  .services-history-actions-left {
+    margin-right: auto;
+  }
+
+  .services-history-actions-right {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .services-history-prof-link {
+    cursor: pointer;
+    color: #ccc;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.2rem 0;
+    font-size: small;
+  }
+
+  .services-history-actions button {
+    flex: 0 0 auto;         
+    width: auto;            
+    white-space: nowrap;
+    font-weight: normal;
+    font-size: 0.875rem;  
+    line-height: 1; 
+    padding: 0.4rem 0.8rem;
+    background: transparent;
+    color: rgb(152, 152, 152);
+    border: 1px solid rgb(152, 152, 152);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .services-history-card-detailed {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "info"
+        "image"
+        "actions";
+      width: 100%;
+    }
+    .services-history-image-wrapper,
+    .services-history-actions {
+      justify-content: center;
+      text-align: center;
+    }
+    .services-history-header {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .services-history-btn-cancel {
+      margin-left: 0; /* centrado o alinear según preferencia */
+    }
+    .services-history-actions {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .services-history-actions-left,
+    .services-history-actions-right {
+      margin: 0;
+      justify-content: center;
+    }
+  }

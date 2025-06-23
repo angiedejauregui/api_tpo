@@ -73,7 +73,15 @@ export default function ServicesHistory() {
                     })}
                 </div>
 
-                <p className="services-history-prof-link" onClick={() => navigate(`/trainer/${b.trainerId._id}`)}>
+                <p
+                    className="services-history-prof-link"
+                    onClick={() =>
+                    navigate(
+                        `/trainer-profile-client-view/${b.trainerId._id}`,
+                        { state: { trainer: b.trainerId } } 
+                    )
+                    }
+                >
                     Profe {b.trainerId.name} {b.trainerId.lastName} <i className="fas fa-user" />
                 </p>
             </div>

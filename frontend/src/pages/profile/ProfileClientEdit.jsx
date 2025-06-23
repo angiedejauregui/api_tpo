@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Modal from "../../components/popUp/Modal";
 import "./ProfileClientEdit.css";
 
 const ProfileClientEdit = () => {
@@ -33,6 +34,10 @@ const ProfileClientEdit = () => {
       .catch(() => setLoading(false));
   }, []);
 
+  const handleClose = () => {
+    navigate(-1);
+  };
+
   const handleChange = e =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -54,63 +59,61 @@ const ProfileClientEdit = () => {
   if (loading) return <p>Cargando...</p>;
 
   return (
-    <div className="profile-client-edit-overlay">
-      <div className="profile-client-edit-card">
-        <h2 className="profile-client-edit-title">Editar Perfil</h2>
-        <form className="profile-client-edit-form" onSubmit={handleSubmit}>
-          <label>
-            Nombre
-            <input
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label>
-            Apellido
-            <input
-              name="lastName"
-              value={form.lastName}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label>
-            Email
-            <input
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label>
-            Teléfono
-            <input
-              name="phone"
-              value={form.phone}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label>
-            Fecha de nacimiento
-            <input
-              name="birthDate"
-              type="date"
-              value={form.birthDate}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <button type="submit" className="profile-client-edit--submit">
-            Confirmar
-          </button>
-        </form>
-      </div>
-    </div>
+    <Modal onClose={handleClose} titleId="edit-profile-title" width="30%">
+      <h2 id="edit-profile-title">Editar Perfil</h2>
+      <form className="profile-client-edit-form" onSubmit={handleSubmit}>
+        <label>
+          Nombre
+          <input
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label>
+          Apellido
+          <input
+            name="lastName"
+            value={form.lastName}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label>
+          Email
+          <input
+            name="email"
+            type="email"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label>
+          Teléfono
+          <input
+            name="phone"
+            value={form.phone}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label>
+          Fecha de nacimiento
+          <input
+            name="birthDate"
+            type="date"
+            value={form.birthDate}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <button type="submit" className="profile-client-edit--submit">
+          Confirmar
+        </button>
+      </form>
+    </Modal>
   );
 };
 

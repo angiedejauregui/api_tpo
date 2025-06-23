@@ -1,0 +1,30 @@
+.close-button {
+    position: absolute;
+    top: 0.5rem;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #333;
+    padding: 0;
+    padding-right: 10%;
+    margin: 0;
+    z-index: 10;
+  }
+  
+  .close-button:hover,
+  .close-button:focus {
+    color: #000;
+    outline: none;
+  }
+  
+  .close-button::before {
+    content: "";
+    position: absolute;
+    top: -0.5rem;
+    bottom: -0.5rem;
+    left: -0.5rem;
+    right: -0.5rem;
+  }
+  

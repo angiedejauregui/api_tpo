@@ -17,14 +17,14 @@
   
   /* Tarjeta blanca/gris de la edición centrada */
   .profile-client-edit-card {
+    position: relative;
     background: #f2f2f2;
-    padding: 1em;
+    padding: 2rem 1.5rem 1.5rem;
     border-radius: 12px;
     width: 100%;
     max-width: 360px;
     max-height: 80vh;
     overflow-y: auto;
-
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
   
@@ -40,6 +40,7 @@
     flex-direction: column;
     margin-bottom: 1rem;
     font-weight: 500;
+    color: #000;
   }
   
   /* Inputs a 100% del ancho del card */
@@ -55,7 +56,7 @@
   .profile-client-edit-submit {
     width: 100%;
     padding: 0.75rem;
-    background: #e0fd11;
+    background: #ffd700;
     color: #000;
     font-weight: bold;
     border: none;
@@ -66,8 +67,27 @@
   }
   
   .profile-client-edit-submit:hover {
-    background: #d1e70e;
+    background: #ffd700;
   }
+
+ /* .profile-client-edit-close-btn {
+    position: absolute;
+    /*top: 0.1rem;
+    right: 0.1rem;
+    background: transparent;
+    border: none;
+    font-size: medium;
+    z-index: 10;
+    cursor: pointer;
+    color: #333; /* o blanco, según contraste con tu fondo 
+    /*align-self: self-end;
+    top: 0;
+    padding-top: 0rem;
+    padding-right: 1.5rem;
+  }
+  .profile-client-edit-close-btn:hover {
+    color: #000; /* o un color más oscuro si quieres efecto hover 
+  }*/
   
   /* Responsive: en pantallas muy chicas ajustamos padding */
   @media (max-width: 480px) {

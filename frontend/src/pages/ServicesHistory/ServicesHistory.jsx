@@ -97,7 +97,11 @@ export default function ServicesHistory() {
                     <button><p>Ver archivos</p></button>
                 </div>
                 <div className="services-history-actions-right">    
-                    <button><p>Ver publicación original</p></button>
+                <button 
+                    onClick={() => navigate(`/class/${b.serviceId._id}`)}
+                >
+                    <p>Ver publicación original</p>
+                </button>
                     <button><p>Dejar comentario</p></button>
                 </div>
             </div>

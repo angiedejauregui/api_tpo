@@ -120,7 +120,15 @@ const ProfileUserView = () => {
 
             return (
               <div className="profile-user-view-history-card" key={_id}>
-                <img src={serviceId?.images?.[0] || "/imgs/default.jpg"} alt="Clase" />
+                <img 
+                  src={
+                    serviceId?.images?.[0]
+                    ? `http://localhost:5000${serviceId.images[0]}` 
+                    : "/imageNotFound.jpg"
+                  }
+                  alt={serviceId.category}
+                />
+
                 <div className="profile-user-view-history-info">
                   <h4>{serviceId?.category}</h4>
                   <p>Profe {trainerId?.name} {trainerId?.lastName}</p>

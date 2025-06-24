@@ -43,22 +43,26 @@ export default function ServicesHistory() {
             {/* Información */}
             <div className="services-history-info">
             <div className="services-history-header">
-                <h2 className="services-history-category">{b.serviceId.category}</h2>
+                <h2 className="services-history-category">{b.serviceId?.category ?? ""}</h2>
                 <span className={`services-history-status-badge services-history-status-${b.status.toLowerCase()}`}>
                     {b.status}
                 </span>
-                <button
-                    onClick={() => cancelBooking(b._id)}
-                    className="services-history-btn-cancel"
-                >
-                    Cancelar
-                </button>
+
+                {/* Botón Cancelar sólo se muestra si la clase no está cancelada */}
+                {b.status !== "Cancelada" && (
+                    <button
+                        onClick={() => cancelBooking(b._id)}
+                        className="services-history-btn-cancel"
+                    >
+                        Cancelar
+                    </button>
+                )}
             </div>
         
             <div className="services-history-tags-slots">
                 <div className="services-history-tags">
-                    <span className="services-history-tag">{b.serviceId.modality}</span>
-                    <span className="services-history-tag">{b.serviceId.location}</span>
+                    <span className="services-history-tag">{b.serviceId?.modality ?? ""}</span>
+                    <span className="services-history-tag">{b.serviceId?.location ?? ""}</span>
                 </div>
                 <div className="services-history-slots">
                     {b.selectedSlots.map((slotStr, idx) => {
@@ -101,8 +105,12 @@ export default function ServicesHistory() {
             <div className="services-history-image-wrapper">
             <img
                 className="services-history-image"
-                src={b.serviceId.images?.[0] || "/imgs/default.jpg"}
-                alt={b.serviceId.category}
+                src={
+                    b.serviceId?.images?.[0]
+                    ? `http://localhost:5000${b.serviceId.images[0]}`
+                    : "/imageNotFound.jpg"
+                }
+                alt={b.serviceId?.category ?? ""}
             />
             <div className="services-history-rating">
                 ⭐ 4.9 (18 opiniones)
@@ -111,16 +119,41 @@ export default function ServicesHistory() {
         
             {/* Botones de acciones */}
             <div className="services-history-actions">
-                <div className="services-history-actions-left">    
-                    <button><p>Ver archivos</p></button>
-                </div>
-                <div className="services-history-actions-right">    
-                <button 
-                    onClick={() => navigate(`/class/${b.serviceId._id}`)}
-                >
-                    <p>Ver publicación original</p>
-                </button>
-                    <button><p>Dejar comentario</p></button>
+                {/* Botón “Ver archivos” sólo si está confirmada */}
+                {b.status === "Confirmada" && (
+                    <div className="services-history-actions-left">
+                    {b.serviceId?.attachmentLink
+                        ? (
+                        <button
+                            className="services-history-btn-file"
+                            onClick={() =>
+                            window.open(b.serviceId.attachmentLink, "_blank", "noopener,noreferrer")
+                            }
+                        >
+                            Ver archivos
+                        </button>
+                        )
+                        : (
+                        <button className="services-history-btn-file" disabled>
+                            Sin archivos
+                        </button>
+                        )
+                    }
+                    </div>
+                )}
+
+                {/* Botones de “Ver publicación original” y “Dejar comentario” */}
+                <div className="services-history-actions-right">
+                    <button onClick={() => navigate(`/class/${b.serviceId._id}`)}>
+                    Ver publicación original
+                    </button>
+
+                    {/* “Dejar comentario” sólo si está confirmada */}
+                    {b.status === "Confirmada" && (
+                    <button onClick={() => navigate(`/class/${b.serviceId._id}/comment`)}>
+                        Dejar comentario
+                    </button>
+                    )}
                 </div>
             </div>
       </div>

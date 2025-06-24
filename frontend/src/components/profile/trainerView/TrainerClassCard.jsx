@@ -29,7 +29,6 @@ export default function TrainerClassCard({ data }) {
           <span className="material-symbols-outlined">more_vert</span>
         </button>
 
-        
         <img
           className="class-card__image"
           src={classImage?`http://localhost:5000${classImage}`: "/imageNotFound.jpg"}

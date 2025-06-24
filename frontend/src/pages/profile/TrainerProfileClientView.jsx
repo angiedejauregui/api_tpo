@@ -42,7 +42,9 @@ const TrainerProfileClientView = () => {
           classes.map((cls) => {
             const dias = cls.schedule.map(s => s.day).join(", ");
             const horarios = cls.schedule.map(s => s.from).join(" / ");
-            const imagen = cls.images?.[0] || "/img/image-not-found.jpg";
+            const imagen = cls.images?.[0]
+              ? `http://localhost:5000${cls.images[0]}`
+              : "/imageNotFound.jpg";
 
             return (
               <div className="trainer-profile-client-view-class-card" key={cls._id}>

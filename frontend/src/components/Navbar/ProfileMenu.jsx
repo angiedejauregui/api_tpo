@@ -31,7 +31,12 @@ const ProfileMenu = ({  user, initial, isOpen, menuRef }) => {
               </div>
 
               <div className="profile-actions">
-                <button className="dropdown-button clases">Mis clases</button>
+                <button 
+                  className="dropdown-button clases"
+                  onClick={() => navigate("/history")}
+                  >
+                    Mis clases
+                </button>
                 <hr />
                 <button 
                   className="dropdown-button"

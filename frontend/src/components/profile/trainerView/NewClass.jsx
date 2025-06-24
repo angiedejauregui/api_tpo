@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import "./NewClass.css";
 
@@ -23,6 +23,7 @@ export default function NewClass({ onClose }) {
   });
 
   const [imageFile, setImageFile] = useState(null);
+  const fileInputRef = useRef();
 
   const [errors, setErrors] = useState({});
 
@@ -66,12 +67,7 @@ export default function NewClass({ onClose }) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
-  const handleImageClick = () => {
-    const url = prompt("Pega la URL de la imagen");
-    if (url) setFormData((prev) => ({ ...prev, image: url }));
-  };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
@@ -115,153 +111,146 @@ export default function NewClass({ onClose }) {
         <form onSubmit={handleSubmit}>
           <div className="form-columns">
           
-              <div className="form-left">
+            <div className="form-left">
 
-                  <div className="form-field">
+              <div className="form-field">
+                <div className="input-wrapper image-box" onClick={() => fileInputRef.current.click()}>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    style={{ display: "none" }}
+                    onChange={(e) => setImageFile(e.target.files[0])}
+                  />
+                  {imageFile ? (
+                    <img src={URL.createObjectURL(imageFile)} alt="Previsualización" />
+                  ) : (
+                    <span className="material-symbols-outlined image-icon">add_photo_alternate</span>
+                  )}
+                </div>
+              </div>
+
+              <div className="form-field">
+                <label>
+                  Disponibilidad Horaria
+                  {errors.category && <span className="error-star">*</span>}
+                </label>
+                {formData.schedule.map((item, index) => (
+                    <div key={index} className="input-wrapper schedule-row">
+                    <select
+                        name={`day-${index}`}
+                        value={item.day}
+                        onChange={(e) => handleScheduleChange(index, "day", e.target.value)}
+                    >
+                        <option value="" >Día</option>
+                        {["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"].map((d) => (
+                        <option key={d} value={d}>{d}</option>
+                        ))}
+                    </select>
+                    <input
+                        type="time"
+                        value={item.from}
+                        onChange={(e) => handleScheduleChange(index, "from", e.target.value)}
+                    />
+                    <input
+                        type="time"
+                        value={item.to}
+                        onChange={(e) => handleScheduleChange(index, "to", e.target.value)}
+                    />
+                    <button type="button" onClick={() => handleRemoveSchedule(index)}>✕</button>
+                    </div>
+                ))}
+                <button className="add-btn" type="button" onClick={handleAddSchedule}>+ Agregar horario</button>
+              </div>
+
+          
+              <div className="form-field">
+                <label>Capacidad</label>
+                <div className="input-wrapper capacity-wrapper">
+                  <span className="capacity-icon material-symbols-outlined">accessibility_new</span>
+                  <span className="capacity-number">{formData.capacity}</span>
+                  <div className="capacity-buttons">
+                    <button type="button" onClick={() => setFormData(f => ({ ...f, capacity: Math.max(1, f.capacity - 1) }))}>-</button>
+                    <button type="button" onClick={() => setFormData(f => ({ ...f, capacity: f.capacity + 1 }))}>+</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div className="form-right">
+              <div className="form-field">
+                  <label>
+                    Categoría
+                    {errors.category && <span className="error-star">*</span>}
+                  </label>
+                  <div className="input-wrapper">
+                  <input name="category" value={formData.category} onChange={handleChange} />
+                  </div>
+              </div>
+
+              <div className="form-field">
+                  <label>
+                    Descripción
+                    {errors.category && <span className="error-star">*</span>}
+                  </label>
+                  <div className="input-wrapper">
+                  <textarea name="description" value={formData.description} onChange={handleChange} />
+                  </div>
+              </div>
+
+              <div className="form-field">
+                  <label>
+                    Precio
+                    {errors.category && <span className="error-star">*</span>}
+                  </label>
+                  <div className="input-wrapper">
+                  <input 
+                    name="price" 
+                    type="number" 
+                    value={formData.price} 
+                    onChange={handleChange}
                     
-                      <div className="input-wrapper image-box" onClick={handleImageClick}>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => {
-                            const file = e.target.files[0];
-                            if (file) {
-                              setImageFile(file);
-                              const reader = new FileReader();
-                              reader.onloadend = () => {
-                                setFormData(prev => ({ ...prev, image: reader.result }));
-                              };
-                              reader.readAsDataURL(file);
-                            }
-                          }}
-                        />
-                        {formData.image && (
-                          <img src={formData.image} alt="Vista previa" />
-                        )}
-                      </div>
+                  />
+                    <span className="price-suffix">/clase</span>
                   </div>
-
-                  <div className="form-field">
-                      <label>
-                        Disponibilidad Horaria
-                        {errors.category && <span className="error-star">*</span>}
-                      </label>
-                      {formData.schedule.map((item, index) => (
-                          <div key={index} className="input-wrapper schedule-row">
-                          <select
-                              name={`day-${index}`}
-                              value={item.day}
-                              onChange={(e) => handleScheduleChange(index, "day", e.target.value)}
-                          >
-                              <option value="" >Día</option>
-                              {["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"].map((d) => (
-                              <option key={d} value={d}>{d}</option>
-                              ))}
-                          </select>
-                          <input
-                              type="time"
-                              value={item.from}
-                              onChange={(e) => handleScheduleChange(index, "from", e.target.value)}
-                          />
-                          <input
-                              type="time"
-                              value={item.to}
-                              onChange={(e) => handleScheduleChange(index, "to", e.target.value)}
-                          />
-                          <button type="button" onClick={() => handleRemoveSchedule(index)}>✕</button>
-                          </div>
-                      ))}
-                      <button className="add-btn" type="button" onClick={handleAddSchedule}>+ Agregar horario</button>
-                  </div>
-
-              
-                  <div className="form-field">
-                      <label>Capacidad</label>
-                      <div className="input-wrapper capacity-wrapper">
-                        <span className="capacity-icon material-symbols-outlined">accessibility_new</span>
-                        <span className="capacity-number">{formData.capacity}</span>
-                        <div className="capacity-buttons">
-                          <button type="button" onClick={() => setFormData(f => ({ ...f, capacity: Math.max(1, f.capacity - 1) }))}>-</button>
-                          <button type="button" onClick={() => setFormData(f => ({ ...f, capacity: f.capacity + 1 }))}>+</button>
-                        </div>
-                      </div>
-                  </div>
-
               </div>
 
-              <div className="form-right">
-                  <div className="form-field">
-                      <label>
-                        Categoría
-                        {errors.category && <span className="error-star">*</span>}
-                      </label>
-                      <div className="input-wrapper">
-                      <input name="category" value={formData.category} onChange={handleChange} />
-                      </div>
+              <div className="form-field">
+                  <label>
+                    Modalidad
+                    {errors.category && <span className="error-star">*</span>}
+                  </label>
+                  <div className="input-wrapper">
+                  <select name="modality" value={formData.modality} onChange={handleChange}>
+                      <option value="">Seleccionar</option>
+                      <option value="Presencial">Presencial</option>
+                      <option value="Virtual">Virtual</option>
+                  </select>
                   </div>
-
-                  <div className="form-field">
-                      <label>
-                        Descripción
-                        {errors.category && <span className="error-star">*</span>}
-                      </label>
-                      <div className="input-wrapper">
-                      <textarea name="description" value={formData.description} onChange={handleChange} />
-                      </div>
-                  </div>
-
-                  <div className="form-field">
-                      <label>
-                        Precio
-                        {errors.category && <span className="error-star">*</span>}
-                      </label>
-                      <div className="input-wrapper">
-                      <input 
-                        name="price" 
-                        type="number" 
-                        value={formData.price} 
-                        onChange={handleChange}
-                        
-                      />
-                        <span className="price-suffix">/clase</span>
-                      </div>
-                  </div>
-
-                  <div className="form-field">
-                      <label>
-                        Modalidad
-                        {errors.category && <span className="error-star">*</span>}
-                      </label>
-                      <div className="input-wrapper">
-                      <select name="modality" value={formData.modality} onChange={handleChange}>
-                          <option value="">Seleccionar</option>
-                          <option value="Presencial">Presencial</option>
-                          <option value="Virtual">Virtual</option>
-                      </select>
-                      </div>
-                  </div>
-
-                  <div className="form-field">
-                      <label>
-                        Idioma
-                        {errors.category && <span className="error-star">*</span>}
-                      </label>
-                      <div className="input-wrapper">
-                      <input name="language" value={formData.language} onChange={handleChange} />
-                      </div>
-                  </div>
-
-                  <div className="form-field">
-                      <label>
-                        Ubicación
-                        {errors.category && <span className="error-star">*</span>}
-                      </label>
-                      <div className="input-wrapper">
-                      <input name="location" value={formData.location} onChange={handleChange} />
-                      </div>
-                  </div>
-                  
               </div>
+
+              <div className="form-field">
+                  <label>
+                    Idioma
+                    {errors.category && <span className="error-star">*</span>}
+                  </label>
+                  <div className="input-wrapper">
+                  <input name="language" value={formData.language} onChange={handleChange} />
+                  </div>
+              </div>
+
+              <div className="form-field">
+                  <label>
+                    Ubicación
+                    {errors.category && <span className="error-star">*</span>}
+                  </label>
+                  <div className="input-wrapper">
+                  <input name="location" value={formData.location} onChange={handleChange} />
+                  </div>
+              </div>
+                
+            </div>
           </div>
         
           <div className="form-field">

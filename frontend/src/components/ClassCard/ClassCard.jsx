@@ -9,8 +9,10 @@ export default function ClassCard({ data }) {
     : "Entrenador/a";
 
   const classImage = data.images?.[0] || null;
-  const profileImage = instructor?.profileImage || null;
+  const isValidImage = classImage && classImage.trim() !== "";
+  const imageSrc = isValidImage ? `http://localhost:5000${classImage}` : "/imageNotFound.jpg";
 
+  const profileImage = instructor?.profileImage || null;
   const category = data.category || "";
   const location = data.location;
   const modality = data.modality;
@@ -26,12 +28,11 @@ export default function ClassCard({ data }) {
         {profileImage && (
           <img src={profileImage} alt={`Perfil de ${instructorName}`} />
         )}
-        {classImage && (
-          <img  
-                className="class-card__image class-card__image--dimmed"
-                src={classImage} 
-                alt={`Clase de ${instructorName}`} />
-        )}
+        <img  
+          className="class-card__image class-card__image--dimmed"
+          src= {imageSrc} 
+          alt={`Clase de ${instructorName}`} 
+        />
         {category && (
           <span className="class-card__category">{category}</span>
         )}

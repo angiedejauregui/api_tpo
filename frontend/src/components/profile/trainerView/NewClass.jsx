@@ -6,6 +6,7 @@ export default function NewClass({ onClose }) {
   const user = useSelector((state) => state.auth.user);
 
   const [formData, setFormData] = useState({
+    instructor: "",
     category: "",
     description: "",
     price: "",
@@ -18,7 +19,7 @@ export default function NewClass({ onClose }) {
     day: "",
     from: "",
     to: "",
-    image: ""
+    image: []
   });
 
   const [imageFile, setImageFile] = useState(null);
@@ -32,7 +33,7 @@ export default function NewClass({ onClose }) {
       if (!formData[field]) newErrors[field] = true;
     });
 
-    const validSchedule = formData.schedule.filter(s => s.day && s.from && s.to && s.from < s.to);
+    const validSchedule = formData.schedule.filter(s => s.day && s.from && s.to && (s.from < s.to));
       if (validSchedule.length === 0) {
         newErrors.schedule = true;
     }
@@ -75,43 +76,8 @@ export default function NewClass({ onClose }) {
     e.preventDefault();
     if (!validate()) return;
 
-    const newClass = {
-      instructor: user.id,
-      category: formData.category,
-      description: formData.description,
-      price: parseFloat(formData.price),
-      modality: formData.modality,
-      language: formData.language,
-      location: formData.location,
-      capacity: parseInt(formData.capacity),
-      attachmentLink: formData.attachmentLink,
-      schedule: validSchedule,
-      images: formData.image ? [formData.image] : []
-    };
-
-    try {
-      await fetch("http://localhost:5000/api/v1/services", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify(newClass)
-      });
-      onClose();
-    } catch (err) {
-      alert("Error al publicar clase");
-    }
-  };
-  /*
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validate()) return;
-
-    const validSchedule = formData.schedule.filter(s => s.day && s.from && s.to && s.from < s.to);
-
     const form = new FormData();
+
     form.append("instructor", user.id);
     form.append("category", formData.category);
     form.append("description", formData.description);
@@ -121,7 +87,7 @@ export default function NewClass({ onClose }) {
     form.append("location", formData.location);
     form.append("capacity", formData.capacity);
     form.append("attachmentLink", formData.attachmentLink);
-    form.append("schedule", JSON.stringify(validSchedule));
+    form.append("schedule", JSON.stringify(formData.schedule));
 
     if (imageFile) {
       form.append("images", imageFile); 
@@ -140,8 +106,6 @@ export default function NewClass({ onClose }) {
       alert("Error al publicar clase");
     }
   };
-  */
-
 
   return (
     <div className="new-class-overlay">
@@ -311,7 +275,7 @@ export default function NewClass({ onClose }) {
             <p className="form-error">Por favor completá los campos obligatorios marcados con *</p>
           )}
 
-          <button className="publish-btn" type="submit">Publicar</button>
+          <button className="publish-btn" type="submit" onChange={handleSubmit}>Publicar</button>
         </form>
       </div>
     </div>

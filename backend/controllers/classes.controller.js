@@ -3,6 +3,8 @@ const Class = require("../models/class.model");
 exports.createClass = async (req, res) => {
   try {
     const imagePaths = req.files?.map((file) => `/images/${file.filename}`) || [];
+    
+    req.body.schedule = JSON.parse(req.body.schedule)
 
     const newClass = new Class({
       ...req.body,
@@ -12,7 +14,7 @@ exports.createClass = async (req, res) => {
     await newClass.save();
     res.status(201).json(newClass);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: error.message });  
   }
 };
 

@@ -29,13 +29,13 @@ export default function TrainerClassCard({ data }) {
           <span className="material-symbols-outlined">more_vert</span>
         </button>
 
-        {classImage && (
-          <img
-            className="class-card__image"
-            src={classImage}
-            alt={`Clase de ${category}`}
-          />
-        )}
+        
+        <img
+          className="class-card__image"
+          src={classImage?`http://localhost:5000${classImage}`: "/imageNotFound.jpg"}
+          alt={`Clase de ${category}`}
+        />
+        
       </div>
 
       <div className="trainer-class-card__info">

@@ -108,6 +108,7 @@ export default function NewClass({ onClose }) {
       <div className="new-class-modal">
         <h2>Nueva Publicación</h2>
         <button className="close-btn" onClick={onClose}>✕</button>
+        
         <form onSubmit={handleSubmit}>
           <div className="form-columns">
           
@@ -179,13 +180,14 @@ export default function NewClass({ onClose }) {
             </div>
 
             <div className="form-right">
+
               <div className="form-field">
                   <label>
                     Categoría
                     {errors.category && <span className="error-star">*</span>}
                   </label>
                   <div className="input-wrapper">
-                  <input name="category" value={formData.category} onChange={handleChange} />
+                    <input name="category" value={formData.category} onChange={handleChange} />
                   </div>
               </div>
 
@@ -264,7 +266,7 @@ export default function NewClass({ onClose }) {
             <p className="form-error">Por favor completá los campos obligatorios marcados con *</p>
           )}
 
-          <button className="publish-btn" type="submit" onChange={handleSubmit}>Publicar</button>
+          <button className="submit-btn" type="submit" onChange={handleSubmit}>Publicar</button>
         </form>
       </div>
     </div>

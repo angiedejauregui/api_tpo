@@ -1,17 +1,74 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import "./TrainerClassCard.css";
+import EditClassInfo from "./EditClassInfo.jsx";
 
 export default function TrainerClassCard({ data }) {
+
+  const user = useSelector((state) => state.auth.user);
   const classImage = data.images?.[0] || null;
   const category = data.category || "";
   const schedule = data.disponibilidadHoraria?.[0] || data.schedule?.[0];
   const driveLink = data.archivosAdjuntos || "";
 
+  const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef();
+
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [classData, setClassData] = useState(null);
+
   const handleOptions = (e) => {
     e.stopPropagation();
-    alert("Editar / Eliminar clase");
+    setShowMenu((prev) => !prev);
   };
 
+  const handleEdit = (e) => {
+    e.stopPropagation();
+    setShowMenu(false);
+    setClassData(data); 
+    setShowEditForm(true);
+  };
+
+  const handleUnpublish = (e) => {
+    e.stopPropagation();
+    setShowMenu(false);
+    alert("Eliminar clase");
+  };
+
+  const handleSaveClassChanges = async (updatedData, imageFile) => {
+    const form = new FormData();
+
+    form.append("category", updatedData.category);
+    form.append("description", updatedData.description);
+    form.append("price", updatedData.price);
+    form.append("modality", updatedData.modality);
+    form.append("language", updatedData.language);
+    form.append("location", updatedData.location);
+    form.append("capacity", updatedData.capacity);
+    form.append("attachmentLink", updatedData.attachmentLink || "");
+    form.append("schedule", JSON.stringify(updatedData.schedule));
+
+    if (imageFile) {
+      form.append("images", imageFile);
+    }
+
+    try {
+      await fetch(`http://localhost:5000/api/v1/services/${data._id}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: form,
+      });
+
+      setShowEditForm(false);
+
+    } catch (err) {
+      alert("Error al guardar los cambios");
+      console.error(err);
+    }
+  };
+  
   const handleViewParticipants = (e) => {
     e.stopPropagation();
     alert("Mostrar participantes");
@@ -22,12 +79,38 @@ export default function TrainerClassCard({ data }) {
     if (driveLink) window.open(driveLink, "_blank");
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
+    <>
     <article className="trainer-class-card">
       <div className="trainer-class-card__images">
         <button className="dots-button" onClick={handleOptions}>
           <span className="material-symbols-outlined">more_vert</span>
         </button>
+        {showMenu && (
+          <div className="menu-popup" ref={menuRef}>
+            <button onClick={handleEdit}>
+              Editar
+              <span className="material-symbols-outlined menu-simbols">edit</span>
+            </button>
+            <button onClick={handleUnpublish}>
+              Despublicar
+              <span className="material-symbols-outlined menu-simbols">schedule</span>
+            </button>
+          </div>
+        )}
 
         <img
           className="class-card__image"
@@ -65,5 +148,12 @@ export default function TrainerClassCard({ data }) {
         </div>
       </div>
     </article>
+    {showEditForm && (  
+      <EditClassInfo
+        classData={classData}
+        onClose={() => setShowEditForm(false)}
+        onSave={handleSaveClassChanges}
+      />)}
+    </>
   );
 }

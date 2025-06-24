@@ -33,7 +33,7 @@ const ProfileCard = ({ user }) => {
         </div>
       </div>
       <hr className="divider" />
-        <p>{description}</p>
+        <p className="profile-description">{description}</p>
 
       {isOwner && (
         <button

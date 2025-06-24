@@ -70,10 +70,34 @@ exports.getClassById = async (req, res) => {
 
 exports.updateClass = async (req, res) => {
   try {
-    const updatedClass = await Class.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    console.log("Cuerpo recibido:", req.body);
+    console.log("Archivo recibido:", req.file);
+
+    if (req.body.schedule) {
+      try {
+        req.body.schedule = JSON.parse(req.body.schedule);
+      } catch (err) {
+        return res.status(400).json({ error: "Formato inválido para schedule" });
+      }
+    }
+    if (req.body.price) req.body.price = Number(req.body.price);
+    if (req.body.capacity) req.body.capacity = Number(req.body.capacity);
+
+    if (req.file) {
+      req.body.images = [`/images/${req.file.filename}`];
+    }
+
+    const updatedClass = await Class.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+
     if (!updatedClass) return res.status(404).json({ error: "Clase no encontrada" });
+
     res.status(200).json(updatedClass);
   } catch (error) {
+    console.error(error);
     res.status(400).json({ error: error.message });
   }
 };

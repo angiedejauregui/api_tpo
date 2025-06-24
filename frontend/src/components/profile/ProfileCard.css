@@ -24,6 +24,10 @@
   flex: 1;
 }
 
+.profile-description {
+  text-align: left;
+}
+
 .profile-details .divider {
   width: 100%;
 }

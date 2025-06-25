@@ -65,20 +65,6 @@
     margin-top: 0.2rem;
 }
 
-.class-card__time {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.9rem;
-  color: #ffffff;
-}
-
-.class-card__time .material-symbols-outlined {
-  margin-top: 1px;
-  font-size: 14px;
-  color: #ffffff;
-}
-
 .class-card__price {
     font-weight: bold;
 }
@@ -90,4 +76,30 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.class-card__time-row {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #ffffff;
+  margin-top: 0.4rem;
+}
+
+.class-card__time-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1rem;
+  flex-shrink: 0;
+}
+
+.class-card__time-item .material-symbols-outlined {
+  font-size: 14px;
+  margin-top: 1px;
+  color: #ffffff;
 }

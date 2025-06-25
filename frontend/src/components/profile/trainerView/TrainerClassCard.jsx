@@ -109,16 +109,14 @@ export default function TrainerClassCard({ data, onUpdate }) {
           <span className="trainer-class-card__category">{category}</span>
         )}
 
-        {schedule?.day && (
-          <span className="trainer-class-card__day">- {schedule.day}</span>
-        )}
-
-        {schedule && (
-          <div className="trainer-class-card__time">
-            <span className="material-symbols-outlined">schedule</span>
-            <span>
-              {schedule.from} - {schedule.to || ""}
-            </span>
+        {classData.schedule?.length > 0 && (
+          <div className="trainer-class-card__schedules">
+            {classData.schedule.map((s, idx) => (
+              <span key={idx} className="trainer-class-card__schedule-item">
+                <span className="material-symbols-outlined schedule-icon">schedule</span>
+                {s.day}: {s.from} - {s.to} /
+              </span>
+            ))}
           </div>
         )}
 

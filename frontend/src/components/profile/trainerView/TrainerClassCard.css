@@ -125,3 +125,25 @@
 .menu-simbols {
   font-size: 18px;
 }
+
+.trainer-class-card__schedules {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.trainer-class-card__schedule-item {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  flex-shrink: 0;
+}
+
+.schedule-icon{
+  font-size: 15px;
+}

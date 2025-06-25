@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import "./TrainerClassCard.css";
-import EditClassInfo from "./EditClassInfo.jsx";
-import { updateClass } from "../../../features/updateClases";
+import EditClassInfo from "../../../features/classActions/EditClassInfo.jsx";
+import { updateClass } from "../../../features/classActions/updateClases.js";
+import { updateClassStatus } from "../../../features/classActions/updateClassStatus.js";
 
-export default function TrainerClassCard({ data, onUpdate }) {
+
+export default function TrainerClassCard({ data, onUpdate, isArchiveView = false }) {
 
   const user = useSelector((state) => state.auth.user);
   const classImage = data.images?.[0] || null;
@@ -33,10 +35,49 @@ export default function TrainerClassCard({ data, onUpdate }) {
     setShowEditForm(true);
   };
 
-  const handleUnpublish = (e) => {
+  const handleUnpublish = async (e) => {
     e.stopPropagation();
-    setShowMenu(false);
-    alert("Eliminar clase");
+    const confirm = window.confirm("¿Archivar esta clase?");
+    if (!confirm) return;
+
+    try {
+      const updated = await updateClassStatus(classData._id, "unpublished", user.token);
+      onUpdate?.(updated);
+      alert("Clase archivada con éxito");
+    } catch (err) {
+      console.error(err);
+      alert("Error al archivar la clase");
+    }
+  };
+
+  const handleRepublish = async (e) => {
+    e.stopPropagation();
+    const confirm = window.confirm("¿Volver a publicar esta clase?");
+    if (!confirm) return;
+
+    try {
+        const updated = await updateClassStatus(classData._id, "published", user.token);
+        onUpdate?.(updated);
+        alert("Clase publicada nuevamente");
+    } catch (err) {
+        console.error(err);
+        alert("Error al publicar la clase");
+    }
+  };
+
+  const handlePermanentDelete = async (e) => {
+    e.stopPropagation();
+    const confirm = window.confirm("¿Eliminar esta clase de forma permanente?");
+    if (!confirm) return;
+
+    try {
+      const updated = await updateClassStatus(classData._id, "deleted", user.token);
+      alert("Clase eliminada permanentemente");
+      onUpdate?.({ _id: updated._id, deleted: true });
+    } catch (err) {
+      console.error(err);
+      alert("Error al eliminar la clase");
+    }
   };
 
   const handleSaveClassChanges = async (updatedData, imageFile ) => {
@@ -80,9 +121,11 @@ export default function TrainerClassCard({ data, onUpdate }) {
     <>
     <article className="trainer-class-card">
       <div className="trainer-class-card__images">
-        <button className="dots-button" onClick={handleOptions}>
-          <span className="material-symbols-outlined">more_vert</span>
-        </button>
+        {!isArchiveView && (
+          <button className="dots-button" onClick={handleOptions}>
+            <span className="material-symbols-outlined">more_vert</span>
+          </button>
+        )}
         {showMenu && (
           <div className="menu-popup" ref={menuRef}>
             <button onClick={handleEdit}>
@@ -90,8 +133,8 @@ export default function TrainerClassCard({ data, onUpdate }) {
               <span className="material-symbols-outlined menu-simbols">edit</span>
             </button>
             <button onClick={handleUnpublish}>
-              Despublicar
-              <span className="material-symbols-outlined menu-simbols">schedule</span>
+                Despublicar
+                <span className="material-symbols-outlined menu-simbols">schedule</span>
             </button>
           </div>
         )}
@@ -128,6 +171,18 @@ export default function TrainerClassCard({ data, onUpdate }) {
             <span className="material-symbols-outlined">group</span> Participantes
           </button>
         </div>
+        {isArchiveView && classData.status === "unpublished" && (
+          <div className="trainer-class-card__archive-actions">
+            <button className="republish-btn" onClick={handleRepublish}>
+              Restaurar Publicación
+            </button>
+            <button className="delete-btn" onClick={handlePermanentDelete}>
+              Eliminar Permanentemente
+            </button>
+          </div>
+        )}
+
+
       </div>
     </article>
     {showEditForm && (  

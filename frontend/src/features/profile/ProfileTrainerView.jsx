@@ -3,11 +3,14 @@ import axios from "axios";
 import ProfileCard from "../../components/profile/ProfileCard";
 import "./ProfileTrainerView.css";
 import MyClasses from "../../components/profile/trainerView/MyClasses";
-import NewClass from "../../components/profile/trainerView/NewClass";
+import NewClass from "../classActions/NewClass";
+import { useNavigate } from "react-router-dom";
+
 
 const ProfileTrainerView = () => {
   const [user, setUser] = useState(null);
   const [showNewClass, setShowNewClass] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -39,7 +42,7 @@ const ProfileTrainerView = () => {
               <span className="material-symbols-outlined" >analytics</span>
               Estadísticas Del Perfil
             </button>
-            <button className="action-btn " onClick={() => navigate("/profile/trainer/history")}>
+            <button className="action-btn " onClick={() => navigate("/profile/trainer/archive")}>
               <span className="material-symbols-outlined">schedule</span>
               Archivo
             </button>
@@ -47,10 +50,10 @@ const ProfileTrainerView = () => {
           
           <div className="half-width-buttons">
             <button className="action-btn new-post" onClick={() =>setShowNewClass(true)}>
-              <span className="material-symbols-outlined">publish</span>
-              Nueva Publicación
+              <span className="material-symbols-outlined new-post-icon">publish</span>
+              Nueva <br></br> Publicación
             </button>
-            <button className="action-btn" onClick={() => navigate("")}>
+            <button className="action-btn" style={{backgroundColor:"#151515da"}} onClick={() => navigate("")}>
               Ver mi Semana
             </button>
           </div>

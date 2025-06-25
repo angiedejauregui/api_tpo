@@ -147,3 +147,19 @@
 .schedule-icon{
   font-size: 15px;
 }
+
+.republish-btn, .delete-btn {
+  padding: 0.2rem;
+  border: none;
+  margin: 0.1rem;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.archive-title{
+  padding: 3rem 0rem 0rem 10%;
+  text-align: left;
+  font-weight: 300;
+  color: #ffffff;
+}
+

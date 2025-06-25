@@ -20,6 +20,7 @@ import ProfileClientEdit from "./pages/profile/ProfileClientEdit";
 import ProfileTrainerEdit from "./pages/profile/ProfileTrainerEdit";
 import SuccessScreen from "./pages/SuccessScreen/SuccessScreen";
 import ServicesHistory from "./pages/ServicesHistory/ServicesHistory";
+import TrainerArchive from "./components/profile/trainerView/trainerArchive";
 
 
 function App() {
@@ -76,6 +77,13 @@ function App() {
                 <SuccessScreen />
               </PrivateRoute>
             }
+          />
+          <Route 
+            path="/profile/trainer/archive" 
+            element={
+              <PrivateRoute>
+                <TrainerArchive />
+              </PrivateRoute>} 
           />
 
         <Route

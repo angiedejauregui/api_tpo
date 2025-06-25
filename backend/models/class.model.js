@@ -25,7 +25,12 @@ const classSchema = new mongoose.Schema({
   location: { type: String, required: true },
   capacity: { type: Number },
   attachmentLink: { type: String },
-  images: [String]
+  images: [String],
+  status: {
+    type: String,
+    enum: ["published", "unpublished", "deleted"],
+    default: "published",
+  },
 }, { timestamps: true });
 
 module.exports = mongoose.model("Class", classSchema);

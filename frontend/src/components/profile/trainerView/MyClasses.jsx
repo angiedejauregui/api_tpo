@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import TrainerClassCard from "./TrainerClassCard";
 import "./MyClasses.css";
-import { fetchClassesByInstructor } from "../../../features/updateClases";
+import { fetchClassesByInstructor } from "../../../features/classActions/updateClases";
 
 export default function MyClasses() {
   const [myClasses, setMyClasses] = useState([]);
@@ -18,7 +18,7 @@ export default function MyClasses() {
     const loadClasses = async () => {
       try {
         const data = await fetchClassesByInstructor(userId, user.token);
-        setMyClasses(data);
+        setMyClasses(data.filter(cls => cls.status === "published"));
       } catch (err) {
         setError("Error al cargar tus clases");
       } finally {

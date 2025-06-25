@@ -55,6 +55,20 @@ const getBookingsByClientId = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
+const getBookingsByTrainerId = async (req, res) => {
+  try {
+    const trainerId = req.userId; // o req.user._id si usás req.user
+    console.log("🔍 getBookingsByTrainer trainerId:", trainerId);
+
+    const bookings = await Booking.find({ trainerId })
+      .populate("clientId", "name lastName email profileImage")
+      .populate("serviceId");
+
+    return res.status(200).json(bookings);
+  } catch (error) {
+    console.error("getBookingsByTrainer ERROR:", error);
+=======
 const getBookingsByTrainer = async (req, res) => {
   try {
     const trainerId = req.query.trainerId;
@@ -68,10 +82,15 @@ const getBookingsByTrainer = async (req, res) => {
     return res.status(200).json(bookings);
   } catch (error) {
     console.error("Error al obtener bookings del entrenador:", error);
+>>>>>>> 4edaefacca629e4b849bc14972c921d126e10fcc
     return res.status(500).json({ error: error.message });
   }
 };
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4edaefacca629e4b849bc14972c921d126e10fcc
 const updateBooking = async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
@@ -153,7 +172,11 @@ const getClassOccupiedSlots = async (req, res) => {
 module.exports = {
   createBooking,
   getBookingsByClientId,
+<<<<<<< HEAD
+  getBookingsByTrainerId,
+=======
   getBookingsByTrainer,
+>>>>>>> 4edaefacca629e4b849bc14972c921d126e10fcc
   updateBooking,
   acceptBooking,
   cancelBooking,

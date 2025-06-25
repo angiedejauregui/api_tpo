@@ -20,6 +20,8 @@ import ProfileClientEdit from "./pages/profile/ProfileClientEdit";
 import ProfileTrainerEdit from "./pages/profile/ProfileTrainerEdit";
 import SuccessScreen from "./pages/SuccessScreen/SuccessScreen";
 import ServicesHistory from "./pages/ServicesHistory/ServicesHistory";
+import ServicesHistoryTrainer from "./pages/ServicesHistory/ServicesHistoryTrainer";
+import ClientProfileTrainerView from "./pages/profile/ClientProfileTrainerView";
 import TrainerArchive from "./components/profile/trainerView/trainerArchive";
 import TrainerRequests from "./features/profile/classRequests/TrainerRequests";
 
@@ -78,22 +80,24 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route 
-            path="/profile/trainer/archive" 
+          <Route
+            path="/profile/trainer/archive"
             element={
               <PrivateRoute>
                 <TrainerArchive />
-              </PrivateRoute>} 
+              </PrivateRoute>
+            }
           />
-          <Route 
-            path="/profile/trainer/requests" 
+          <Route
+            path="/profile/trainer/requests"
             element={
               <PrivateRoute>
                 <TrainerRequests />
-              </PrivateRoute>} 
+              </PrivateRoute>
+            }
           />
 
-        <Route
+          <Route
             path="/trainer-profile-client-view/:id"
             element={
               <PrivateRoute>
@@ -101,34 +105,49 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/client-profile-trainer-view/:id"
+            element={
+              <PrivateRoute>
+                <ClientProfileTrainerView />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/history/client"
+            element={
+              <PrivateRoute>
+                <ServicesHistory />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/history/trainer"
+            element={
+              <PrivateRoute>
+                <ServicesHistoryTrainer />
+              </PrivateRoute>
+            }
+          />
+        </Route>
+
         <Route
-        path="/history"
-        element={
-          <PrivateRoute>
-            <ServicesHistory />
-          </PrivateRoute>
-        }
-      />
+          path="/profile/client/edit"
+          element={
+            <PrivateRoute>
+              <ProfileClientEdit />
+            </PrivateRoute>
+          }
+        />
 
-      </Route>
-      
-      <Route
-        path="/profile/client/edit"
-        element={
-          <PrivateRoute>
-            <ProfileClientEdit />
-          </PrivateRoute>
-        }
-      />
-
-      <Route
-        path="/profile/trainer/edit"
-        element={
-          <PrivateRoute>
-            <ProfileTrainerEdit />
-          </PrivateRoute>
-        }
-      />
+        <Route
+          path="/profile/trainer/edit"
+          element={
+            <PrivateRoute>
+              <ProfileTrainerEdit />
+            </PrivateRoute>
+          }
+        />
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

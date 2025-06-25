@@ -1,6 +1,6 @@
-import { createReviewService, getReviewsByTrainerId } from "../services/reviews.service.js";
+const { createReviewService, getReviewsByTrainerId } = require("../services/reviews.service");
 
-export const createReview = async (req, res) => {
+const createReview = async (req, res) => {
   try {
     const review = await createReviewService({
       trainerId: req.body.trainerId,
@@ -27,7 +27,7 @@ export const createReview = async (req, res) => {
   }
 };
 
-export const getAllReviews = async (req, res) => {
+const getAllReviews = async (req, res) => {
   try {
     const reviews = await getReviewsByTrainerId(req.query.trainerId);
     res.status(200).json(reviews);
@@ -36,12 +36,18 @@ export const getAllReviews = async (req, res) => {
   }
 };
 
-export const getReviewsByTrainer = async (req, res) => {
-    try {
-      const { trainerId } = req.params;
-      const reviews = await getReviewsByTrainerId(trainerId);
-      res.status(200).json(reviews);
-    } catch (error) {
-      res.status(500).json({ error: "Error al obtener reseñas por entrenador" });
-    }
-  };
+const getReviewsByTrainer = async (req, res) => {
+  try {
+    const { trainerId } = req.params;
+    const reviews = await getReviewsByTrainerId(trainerId);
+    res.status(200).json(reviews);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener reseñas por entrenador" });
+  }
+};
+
+module.exports = {
+  createReview,
+  getAllReviews,
+  getReviewsByTrainer,
+};

@@ -11,6 +11,7 @@ const classRoutes = require("./routes/classes.routes");
 const bookingsRoutes = require("./routes/bookings.routes.js");
 const reviewsRoutes = require("./routes/reviews.routes.js");
 const notificationRoutes = require("./routes/notifications.routes.js");
+const statsRoutes = require("./routes/stats.routes.js");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -27,6 +28,7 @@ app.use("/api/v1/services", classRoutes);
 app.use("/api/v1/bookings", bookingsRoutes);
 app.use("/api/v1/reviews", reviewsRoutes);
 app.use("/api/v1/notifications", notificationRoutes);
+app.use("/api/v1/stats", statsRoutes);
 
 
 

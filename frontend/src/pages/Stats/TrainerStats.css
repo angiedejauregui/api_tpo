@@ -1,0 +1,162 @@
+/* Estilo general del fondo */
+.stats-page {
+    background-color: #1c0935;
+    min-height: 100vh;
+    padding: 1rem;
+    color: white;
+    font-family: "Inter", sans-serif;
+  }
+  
+  /* Título */
+  .stats-title {
+    color: #ccc;
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Contenedor principal */
+  .stats-container {
+    background-color: black;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .button-responder-stats{
+    width: auto;
+  }
+
+  .mt-2{
+    text-align: left;
+    width: 100%;
+    
+  }
+
+  .comment-card{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .comment-card> .header{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1rem;
+  }
+
+  .comment-card> .header>fieldset{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    border: none;
+  }
+
+
+  
+  @media (min-width: 768px) {
+    .stats-container {
+      flex-direction: row;
+    }
+  }
+  
+  /* Comentarios */
+  .comments-section {
+    width: 100%;
+    padding: 1.5rem;
+  }
+  
+  .comments-section h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .comment-card {
+    background-color: #e5e7eb;
+    color: black;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .comment-card .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .comment-card button {
+    background-color: #d9f900;
+    color: black;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    transition: background-color 0.3s;
+  }
+  
+  .comment-card button:hover {
+    background-color: #e4ff3d;
+  }
+  
+  /* Estadísticas */
+  .stats-section {
+    width: 100%;
+    background-color: #e5e7eb;
+    color: black;
+    padding: 1.5rem;
+  }
+  
+  .stats-section h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .stat-grid p:first-child {
+    font-size: 1.875rem;
+    font-weight: bold;
+  }
+  
+  .stat-grid .star {
+    color: #facc15; /* amarillo estrella */
+  }
+  
+  /* Distribución */
+  .rating-distribution h4 {
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .rating-bar {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 0.5rem;
+  }
+  
+  .rating-bar span {
+    margin-right: 0.5rem;
+  }
+  
+  .rating-bar .bar {
+    height: 1rem;
+    background-color: #facc15;
+    border-radius: 0.25rem;
+  }
+  
+  .rating-bar .count {
+    margin-left: 0.5rem;
+  }

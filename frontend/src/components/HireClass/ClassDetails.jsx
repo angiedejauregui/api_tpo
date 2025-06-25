@@ -12,7 +12,7 @@ const ClassDetails = ({
 }) => {
   return (
     <div className="hire-class-details">
-      <img src={image} alt={title} />
+      <img src={`http://localhost:5000${image}`} alt={title} />
       <h2>{title.toUpperCase()}</h2>
       <div className="tags">
         <span className="tag">{modality}</span>

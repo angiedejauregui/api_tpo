@@ -52,11 +52,15 @@ export default function ClassCard({ data }) {
           </p>
         )}
         
-        {schedule && (
-            <div className="class-card__time">
+        {data.schedule?.length > 0 && (
+          <div className="class-card__time-row">
+            {data.schedule.map((s, idx) => (
+              <span key={idx} className="class-card__time-item">
                 <span className="material-symbols-outlined">schedule</span>
-                <span>{schedule.day}: {schedule.from} - {schedule.to}</span>
-            </div>
+                {s.day}: {s.from} - {s.to} /
+              </span>
+            ))}
+          </div>
         )}
 
         {typeof price === "number" && (

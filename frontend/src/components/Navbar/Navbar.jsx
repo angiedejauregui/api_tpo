@@ -2,11 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import "./Navbar.css";
 import { useSelector } from "react-redux";
 import { PiHouse } from "react-icons/pi";
-import { IoNotificationsOutline } from "react-icons/io5";
 import { BsPerson } from "react-icons/bs";
 import ProfileMenu from "./ProfileMenu";
 import { useNavigate } from "react-router-dom";
-
+import NotificationsDropdown from "./NotificationsDropdown";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -76,7 +75,7 @@ const Navbar = () => {
             <PiHouse className="icon" />
           </div>
           <div className="btn">
-            <IoNotificationsOutline className="icon" />
+            <NotificationsDropdown token={user?.token} />
           </div>
 </>
           )}

@@ -43,7 +43,7 @@ const [error, setError] = useState(null);
         </div>
         <p>{classData.description}</p>
         <Schedule schedule={classData.schedule} />
-        <Opinions rating={classData.rating} reviews={classData.reviews} />
+        <Opinions trainerId={classData.instructor._id} />
       </div>
       <div className="right-column-class-post">
         <ClassInfo trainer={classData.instructor} price={classData.price} />

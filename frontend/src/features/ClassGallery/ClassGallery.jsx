@@ -62,7 +62,9 @@ export default function ClassGallery({
     fetchFilteredClasses();
   }, [appliedFilters]);
 
-  const filteredClasses = classesData.filter((item) => {
+  const filteredClasses = classesData
+  .filter((item) => item.status === "published")
+  .filter((item) => {
     if (!searchText) return true;
     const text = searchText.toLowerCase();
     return (

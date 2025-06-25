@@ -29,6 +29,11 @@
   cursor: pointer;
   transition: 0.2s;
   font-size: 1.2rem;
+  margin: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 300;
 }
 
 .action-btn:hover {
@@ -39,11 +44,19 @@
     height: 100px;
 }
 
-.new-post{
-    background-color: #c2d911;
-    color: #000000;
-    max-width: 200px;
+.new-post-icon{
+  font-size: 4rem;
 }
+
+.new-post{
+  display: flex;
+  flex-direction: column;
+  background-color: #c2d911;
+  color: #000000;
+  max-width: 200px;
+  font-weight: 500;
+}
+
 .new-post:hover {
   background-color: #a8b009c7;
   transition: 0.2s;
@@ -53,7 +66,7 @@
 .half-width-buttons {
   display: flex;
   gap: 1rem;
-  height: 150px;
+  min-height: 180px;
 }
 
 .half-width-buttons .action-btn {

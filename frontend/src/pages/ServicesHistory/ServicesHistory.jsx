@@ -11,16 +11,47 @@ export default function ServicesHistory() {
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
+  const [trainerRatings, setTrainerRatings] = useState({});
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+
     axios
       .get("http://localhost:5000/api/v1/bookings/by-client", {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then(res => setBookings(res.data))
+      .then(async res => {
+        const bookings = res.data;
+        setBookings(bookings);
+  
+        /* Traer rating por cada trainer que tengo en el Historial */
+        const trainerIds = [...new Set(bookings.map(b => b.trainerId._id))];
+        const ratingsMap = {};
+  
+        for (const id of trainerIds) {
+          try {
+            const response = await axios.get(`http://localhost:5000/api/v1/reviews/trainer/${id}`);
+            const reviews = response.data;
+  
+            const avgRating =
+              reviews.reduce((sum, r) => sum + r.rating, 0) / (reviews.length || 1);
+  
+            ratingsMap[id] = {
+              rating: avgRating,
+              count: reviews.length,
+            };
+          } catch (err) {
+            console.error("Error cargando reviews para trainer", id, err);
+            ratingsMap[id] = { rating: 0, count: 0 };
+          }
+        }
+  
+        setTrainerRatings(ratingsMap);
+      })
       .catch(console.error);
   }, []);
+
+  
 
   const cancelBooking = async (id) => {
     try {
@@ -46,11 +77,14 @@ export default function ServicesHistory() {
       await axios.post(
         "http://localhost:5000/api/v1/reviews",
         {
+          trainerId: selectedBooking.trainerId._id,
           bookingId: selectedBooking._id,
           comment,
           rating,
         },
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
   
       setShowCommentModal(false);
@@ -139,9 +173,11 @@ export default function ServicesHistory() {
                 }
                 alt={b.serviceId?.category ?? ""}
             />
-            <div className="services-history-rating">
-                ⭐ 4.9 (18 opiniones)
-            </div>
+            {trainerRatings[b.trainerId._id] && (
+                <div className="services-history-rating">
+                    ⭐ {trainerRatings[b.trainerId._id].rating.toFixed(1)} ({trainerRatings[b.trainerId._id].count} opiniones)
+                </div>
+            )}
             </div>
         
             {/* Botones de acciones */}

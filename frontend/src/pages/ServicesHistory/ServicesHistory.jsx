@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Modal from "../../components/popUp/Modal"; 
 import "./ServicesHistory.css";
 
 export default function ServicesHistory() {
   const [bookings, setBookings] = useState([]);
   const navigate = useNavigate();
+  const [showCommentModal, setShowCommentModal] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -32,6 +37,28 @@ export default function ServicesHistory() {
       );
     } catch (err) {
       console.error("Error al cancelar reserva:", err);
+    }
+  };
+
+  const handleSubmitComment = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.post(
+        "http://localhost:5000/api/v1/reviews",
+        {
+          bookingId: selectedBooking._id,
+          comment,
+          rating,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+  
+      setShowCommentModal(false);
+      setComment("");
+      setRating(0);
+      setSelectedBooking(null);
+    } catch (error) {
+      console.error("Error al enviar comentario", error);
     }
   };
 
@@ -150,14 +177,55 @@ export default function ServicesHistory() {
 
                     {/* “Dejar comentario” sólo si está confirmada */}
                     {b.status === "Confirmada" && (
-                    <button onClick={() => navigate(`/class/${b.serviceId._id}/comment`)}>
-                        Dejar comentario
-                    </button>
+                        <button
+                            onClick={() => {
+                            setSelectedBooking(b);
+                            setShowCommentModal(true);
+                            }}
+                            >
+                            Dejar comentario
+                        </button>
                     )}
                 </div>
             </div>
-      </div>
-      ))}
+       </div>
+       ))}
+
+        {/* Pop Up para dejar comentario */}
+        {showCommentModal && (
+        <Modal onClose={() => setShowCommentModal(false)} width="30%" titleId="services-history-comment-title">
+            <div className="services-history-comment-popup">
+            <h3 className="services-history-comment-title" id="services-history-comment-title">Deja tu comentario</h3>
+            <div className="services-history-comment-stars">
+                {[1, 2, 3, 4, 5].map((i) => (
+                <span
+                    key={i}
+                    onClick={() => setRating(i)}
+                    className={`services-history-star ${i <= rating ? "services-history-star-filled" : ""}`}
+                >
+                ★
+              </span>
+                ))}
+            </div>
+            <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="Escribí tu comentario..."
+                className="services-history-comment-txt"
+            />
+            <button
+                onClick={handleSubmitComment}
+                className="services-history-comment-submit"
+            >
+                <h3 className="services-history-comment-submit-txt">Publicar</h3>
+            </button>
+            </div>
+        </Modal>
+        )}
+
     </div>
+    
+
+
   );
 }

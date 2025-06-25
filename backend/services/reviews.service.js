@@ -1,5 +1,8 @@
 const Review = require("../models/reviews.model");
 const Booking = require("../models/bookings.model");
+const Stat = require("../models/stats.model");
+const User = require("../models/user.model");
+const { updateTrainerStats } = require("../services/stats.service");
 
 const createReviewService = async ( { trainerId, bookingId, clientId, rating, comment } ) => {
 
@@ -20,6 +23,15 @@ const createReviewService = async ( { trainerId, bookingId, clientId, rating, co
     comment,
     clientId,
   });
+  console.log("create review service", clientId);
+  const client = await User.findById(clientId);
+
+  await updateTrainerStats({
+    trainerId,
+    rating,
+    comment,
+    clientName: client ? client.name : "Usuario no definido",
+ });
 
   return review;
 };

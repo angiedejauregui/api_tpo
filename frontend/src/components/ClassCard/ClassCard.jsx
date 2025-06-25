@@ -26,6 +26,17 @@ export default function ClassCard({ data }) {
   const [reviews, setReviews] = useState([]);
 const [avgRating, setAvgRating] = useState(0);
 
+const handleClick = async () => {
+  try {
+    await fetch(`http://localhost:5000/api/v1/stats/views/${instructor._id}`, {
+      method: "PATCH",
+    });
+  } catch (err) {
+    console.error("Error actualizando vistas", err);
+  }
+  navigate(`/class/${data._id}`);
+};
+
 useEffect(() => {
   const fetchReviews = async () => {
     try {
@@ -41,11 +52,12 @@ useEffect(() => {
     }
   };
 
+
   if (instructor?._id) fetchReviews();
 }, [instructor?._id]);
 
   return (
-    <article className="class-card" onClick={() => navigate(`/class/${data._id}`)}>
+    <article className="class-card" onClick={handleClick}>
       <div className="class-card__images">
         {profileImage && (
           <img src={profileImage} alt={`Perfil de ${instructorName}`} />

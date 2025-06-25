@@ -9,7 +9,8 @@ export default function ClassGallery({
   filters,
   setFilters,
   appliedFilters,
-  setAppliedFilters
+  setAppliedFilters,
+  searchText,
 }) {
   const [classesData, setClassesData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,14 +19,22 @@ export default function ClassGallery({
   const fetchFilteredClasses = (customFilters = appliedFilters) => {
     const params = new URLSearchParams();
 
-    if (customFilters.category.length) params.append("category", customFilters.category.join(","));
-    if (customFilters.zone.length) params.append("zone", customFilters.zone.join(","));
-    if (customFilters.language.length) params.append("language", customFilters.language.join(","));
-    if (customFilters.mode.length) params.append("mode", customFilters.mode.join(","));
-    if (customFilters.minPrice) params.append("minPrice", customFilters.minPrice);
-    if (customFilters.maxPrice) params.append("maxPrice", customFilters.maxPrice);
-    if (customFilters.minRating) params.append("minRating", customFilters.minRating);
-    if (customFilters.maxRating) params.append("maxRating", customFilters.maxRating);
+    if (customFilters.category.length)
+      params.append("category", customFilters.category.join(","));
+    if (customFilters.zone.length)
+      params.append("zone", customFilters.zone.join(","));
+    if (customFilters.language.length)
+      params.append("language", customFilters.language.join(","));
+    if (customFilters.mode.length)
+      params.append("mode", customFilters.mode.join(","));
+    if (customFilters.minPrice)
+      params.append("minPrice", customFilters.minPrice);
+    if (customFilters.maxPrice)
+      params.append("maxPrice", customFilters.maxPrice);
+    if (customFilters.minRating)
+      params.append("minRating", customFilters.minRating);
+    if (customFilters.maxRating)
+      params.append("maxRating", customFilters.maxRating);
 
     fetch(`http://localhost:5000/api/v1/services?${params.toString()}`)
       .then((res) => res.json())
@@ -50,6 +59,19 @@ export default function ClassGallery({
     fetchFilteredClasses();
   }, [appliedFilters]);
 
+  const filteredClasses = classesData.filter((item) => {
+    const text = searchText.toLowerCase();
+    return (
+      item.category.toLowerCase().includes(text) ||
+      item.description.toLowerCase().includes(text) ||
+      item.instructor?.name?.toLowerCase().includes(text) ||
+      item.instructor?.lastName?.toLowerCase().includes(text) ||
+      item.location?.toLowerCase().includes(text) ||
+      item.modality?.toLowerCase().includes(text) ||
+      item.language?.toLowerCase().includes(text)
+    );
+  });
+
   if (loading) return <p>Cargando clases...</p>;
   if (error) return <p>{error}</p>;
 
@@ -61,14 +83,17 @@ export default function ClassGallery({
         filters={filters}
         setFilters={setFilters}
         onApply={() => {
-          setAppliedFilters(filters); 
+          setAppliedFilters(filters);
           setShowModal(false);
         }}
       />
-      {classesData.map((classItem, index) => (
-        <ClassCard key={index} data={classItem} />
-      ))}
+      {filteredClasses.length === 0 ? (
+        <p>No se encontraron resultados.</p>
+      ) : (
+        filteredClasses.map((classItem, index) => (
+          <ClassCard key={index} data={classItem} />
+        ))
+      )}
     </section>
   );
 }
-

@@ -1,7 +1,12 @@
-import React from "react";
-import './Banner.css';
+import React, { useState } from "react";
+import "./Banner.css";
 
-export default function Banner({ filters, clearFilter, onOpenFilter }) {
+export default function Banner({
+  filters,
+  clearFilter,
+  onOpenFilter,
+  onSearch,
+}) {
   const renderTags = () => {
     const tags = [];
 
@@ -11,7 +16,11 @@ export default function Banner({ filters, clearFilter, onOpenFilter }) {
           tags.push({ label: labelFormatter(val), key, value: val })
         );
       } else if (filters[key]) {
-        tags.push({ label: labelFormatter(filters[key]), key, value: filters[key] });
+        tags.push({
+          label: labelFormatter(filters[key]),
+          key,
+          value: filters[key],
+        });
       }
     };
 
@@ -40,19 +49,26 @@ export default function Banner({ filters, clearFilter, onOpenFilter }) {
 
   return (
     <section className="banner">
-      <img src="/pesasGym.png" alt="Banner pesas de gimnasio" className="banner-img"/>
+      <img
+        src="/pesasGym.png"
+        alt="Banner pesas de gimnasio"
+        className="banner-img"
+      />
       <div className="banner-overlay"></div>
       <div className="banner-content">
         <form className="search-form">
           <fieldset>
             <div className="search-container">
-              <span className="material-symbols-outlined search-icon">search</span>
+              <span className="material-symbols-outlined search-icon">
+                search
+              </span>
               <input
                 type="text"
                 name="Search"
                 id="Search"
                 placeholder="Buscar"
                 className="search-input"
+                onChange={(e) => onSearch(e.target.value)}
               />
               <span
                 className="material-symbols-outlined filter-icon"

@@ -19,9 +19,9 @@
     padding: 2rem 1.5rem 1.5rem;
     width: 100%;
     box-sizing: border-box;
+    overflow-x: hidden;
   }
   
-  /* Para que, en pantallas pequeñas, el modal no quede muy alto */
   @media (max-height: 600px) {
     .modal-content {
       max-height: 90vh;

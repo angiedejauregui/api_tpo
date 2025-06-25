@@ -193,34 +193,36 @@ export default function ServicesHistory() {
 
         {/* Pop Up para dejar comentario */}
         {showCommentModal && (
-        <Modal onClose={() => setShowCommentModal(false)} width="30%" titleId="services-history-comment-title">
-            <div className="services-history-comment-popup">
-            <h3 className="services-history-comment-title" id="services-history-comment-title">Deja tu comentario</h3>
-            <div className="services-history-comment-stars">
-                {[1, 2, 3, 4, 5].map((i) => (
-                <span
-                    key={i}
-                    onClick={() => setRating(i)}
-                    className={`services-history-star ${i <= rating ? "services-history-star-filled" : ""}`}
+        <div className="services-history-popup-wrapper-no-scroll">
+            <Modal onClose={() => setShowCommentModal(false)} width="30%" titleId="services-history-comment-title">
+                <div className="services-history-comment-popup">
+                <h3 className="services-history-comment-title" id="services-history-comment-title">Deja tu comentario</h3>
+                <div className="services-history-comment-stars">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                    <span
+                        key={i}
+                        onClick={() => setRating(i)}
+                        className={`services-history-star ${i <= rating ? "services-history-star-filled" : ""}`}
+                    >
+                    ★
+                </span>
+                    ))}
+                </div>
+                <textarea
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    placeholder="Escribí tu comentario..."
+                    className="services-history-comment-txt"
+                />
+                <button
+                    onClick={handleSubmitComment}
+                    className="services-history-comment-submit"
                 >
-                ★
-              </span>
-                ))}
-            </div>
-            <textarea
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                placeholder="Escribí tu comentario..."
-                className="services-history-comment-txt"
-            />
-            <button
-                onClick={handleSubmitComment}
-                className="services-history-comment-submit"
-            >
-                <h3 className="services-history-comment-submit-txt">Publicar</h3>
-            </button>
-            </div>
-        </Modal>
+                    <h3 className="services-history-comment-submit-txt">Publicar</h3>
+                </button>
+                </div>
+            </Modal>
+        </div>
         )}
 
     </div>

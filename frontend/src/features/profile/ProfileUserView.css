@@ -3,10 +3,12 @@
   flex-wrap: wrap;
   gap: 2rem;
   padding: 2rem;
-  color: white;
   min-height: 100vh;
   width: 100%;
   box-sizing: border-box;
+  max-width: 1400px;
+  margin: 0 auto;  
+  justify-content: center;
 }
 
 .profile-user-view-left-column {
@@ -41,8 +43,19 @@
     box-sizing: border-box;    
     display: flex;
     justify-content: center;  
+    max-width: 740px;
+    margin: 0 auto;
   }
   
+  .react-calendar {
+    width: 100%;
+    max-width: 100%;
+    font-size: 1rem;
+    border: solid 1px #e0fd11;
+    border-radius: 10px;
+    background-color: #ffffffc9;
+  } 
+
   .react-calendar__navigation__label {
     display: flex;
     align-items: center;
@@ -58,13 +71,15 @@
    
   
   .profile-user-view-right-column {
-    flex: 1 1 45%;
+    flex: 1 1 32%;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
   } 
   
   .profile-user-view-right-column h3 {
+    font-size: 2rem;
+    font-weight: 300;
     color: white;
   }
   
@@ -73,17 +88,18 @@
     border: 1px solid #e0fd11;
     border-radius: 8px;
     overflow: hidden;
-    display: grid;
-    grid-template-columns: auto 1fr;
+    display: flex;
+    text-align: left;
     gap: 1rem;
     padding: 1rem;
     align-items: center;
     margin-bottom: 1rem;
+    min-height: 200px;
   }
   
   .profile-user-view-history-card img {
-    width: 180px;
-    height: 100px;
+    width: 240px;
+    height: 150px;
     object-fit: cover;
     border-radius: 8px;
   }
@@ -91,6 +107,7 @@
   .profile-user-view-history-info {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   .profile-user-view-history-info h4 {
@@ -127,13 +144,15 @@
 }
 
 .highlight-booked-date {
-  background-color: yellow;
+  background-color: rgba(247, 247, 23, 0.817);
   color: black !important;
   border-radius: 0;
 }
 
 .profile-user-view-btn-more{
   color: rgb(152, 152, 152);
+  text-align: right;
+  padding-top: 1rem;
 }
   
 

@@ -42,6 +42,23 @@ const getBookingsByClientId = async (req, res) => {
   }
 };
 
+const getBookingsByTrainerId = async (req, res) => {
+  try {
+    const trainerId = req.userId; // o req.user._id si usás req.user
+    console.log("🔍 getBookingsByTrainer trainerId:", trainerId);
+
+    const bookings = await Booking.find({ trainerId })
+      .populate("clientId", "name lastName email profileImage")
+      .populate("serviceId");
+
+    return res.status(200).json(bookings);
+  } catch (error) {
+    console.error("getBookingsByTrainer ERROR:", error);
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+
 const updateBooking = async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
@@ -77,5 +94,6 @@ const updateBooking = async (req, res) => {
 module.exports = {
   createBooking,
   getBookingsByClientId,
+  getBookingsByTrainerId,
   updateBooking,
 };

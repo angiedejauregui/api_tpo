@@ -20,6 +20,8 @@ import ProfileClientEdit from "./pages/profile/ProfileClientEdit";
 import ProfileTrainerEdit from "./pages/profile/ProfileTrainerEdit";
 import SuccessScreen from "./pages/SuccessScreen/SuccessScreen";
 import ServicesHistory from "./pages/ServicesHistory/ServicesHistory";
+import ServicesHistoryTrainer from "./pages/ServicesHistory/ServicesHistoryTrainer";
+import ClientProfileTrainerView from "./pages/profile/ClientProfileTrainerView";
 
 
 function App() {
@@ -86,11 +88,27 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/client-profile-trainer-view/:id"
+            element={
+              <PrivateRoute>
+                <ClientProfileTrainerView />
+              </PrivateRoute>
+            }
+          />
         <Route
-        path="/history"
+        path="/history/client"
         element={
           <PrivateRoute>
             <ServicesHistory />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/history/trainer"
+        element={
+          <PrivateRoute>
+            <ServicesHistoryTrainer />
           </PrivateRoute>
         }
       />

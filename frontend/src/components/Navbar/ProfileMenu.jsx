@@ -3,15 +3,15 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../features/auth/AuthSlice";
 
-const ProfileMenu = ({  user, initial, isOpen, menuRef }) => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    
-    const handleLogout = async () => {
-      dispatch(logout());
-      navigate("/login");
-    };
-  
+const ProfileMenu = ({ user, initial, isOpen, menuRef }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    dispatch(logout());
+    navigate("/login");
+  };
+
   return (
     <>
       {isOpen && (
@@ -31,18 +31,24 @@ const ProfileMenu = ({  user, initial, isOpen, menuRef }) => {
               </div>
 
               <div className="profile-actions">
-                <button 
+                <button
                   className="dropdown-button clases"
-                  onClick={() => navigate("/history")}
-                  >
-                    Mis clases
+                  onClick={() => {
+                    if (user.role === "Entrenador") {
+                      navigate("/history/trainer");
+                    } else {
+                      navigate("/history/client");
+                    }
+                  }}
+                >
+                  Mis clases
                 </button>
                 <hr />
-                <button 
+                <button
                   className="dropdown-button"
                   onClick={() => navigate("/profile")}
                 >
-                    Mi perfil
+                  Mi perfil
                 </button>
                 <button
                   className="dropdown-button logout"

@@ -1,0 +1,114 @@
+.services-trainer-container {
+  padding: 2rem;
+  background-color: #0a0a0a;
+  color: #fff;
+}
+
+.services-trainer-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: white;
+  font-weight: 400;
+}
+
+.services-trainer-card {
+  border: 2px solid var(--primary-color);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.services-trainer-left {
+  flex: 1;
+  text-align: start;
+}
+
+.services-trainer-category {
+  font-weight: bold;
+  font-size: 2.5rem;
+  margin: 0 0 0.3rem 0;
+  color: #fff;
+}
+
+.services-trainer-alumno {
+  text-decoration: underline;
+  margin: 0.3rem 0;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.services-trainer-horario {
+  margin: 0.5rem 0;
+}
+
+.services-trainer-tags {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.tag {
+  border: 1px solid var(--primary-color);
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  background: transparent;
+}
+
+.services-trainer-btn,
+.services-trainer-file-btn {
+  flex: 0 0 auto;
+  width: auto;
+  white-space: nowrap;
+  font-weight: normal;
+  font-size: 0.875rem;
+  line-height: 1;
+  padding: 0.4rem 0.8rem;
+  background: transparent;
+  color: rgb(152, 152, 152);
+  border: 1px solid rgb(152, 152, 152);
+}
+
+.services-trainer-file-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.services-trainer-file-icon path {
+    fill: rgb(152, 152, 152);
+
+  
+
+}
+
+.services-trainer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.services-trainer-file-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.services-trainer-cancel-btn {
+  margin: 0;
+  background: #f81f07;
+  color: white;
+  border: none;
+  align-self: flex-start;
+  border-radius: 4px;
+  margin-left: auto;
+  width: auto;
+  font-weight: normal;
+  font-size: smaller;
+  padding: 0.2rem 0.6rem;
+}

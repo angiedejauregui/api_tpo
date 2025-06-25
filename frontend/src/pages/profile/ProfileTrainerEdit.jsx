@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Modal from "../../components/popUp/Modal";
 import "./ProfileTrainerEdit.css";
 
 const ProfileTrainerEdit = () => {
@@ -58,35 +59,33 @@ const ProfileTrainerEdit = () => {
   if (loading) return <p>Cargando...</p>;
 
   return (
-    <div className="profile-trainer-edit-overlay">
-      <div className="profile-trainer-edit-popup">
-        <h2 className="profile-trainer-popup-title">Editar Perfil</h2>
-        <form className="profile-trainer-popup-form" onSubmit={handleSubmit}>
-          <label>Nombre
-            <input name="name" value={form.name} onChange={handleChange} required />
-          </label>
-          <label>Apellido
-            <input name="lastName" value={form.lastName} onChange={handleChange} required />
-          </label>
-          <label>Email
-            <input name="email" type="email" value={form.email} onChange={handleChange} required />
-          </label>
-          <label>Teléfono
-            <input name="phone" value={form.phone} onChange={handleChange} required />
-          </label>
-          <label>Fecha de nacimiento
-            <input name="birthDate" type="date" value={form.birthDate} onChange={handleChange} required />
-          </label>
-          <label>CVU
-            <input name="cvu" value={form.cvu} onChange={handleChange} required />
-          </label>
-          <label>Descripción
-            <textarea name="description" value={form.description} onChange={handleChange} />
-          </label>
-          <button type="submit" className="profile-trainer-popup-submit-btn">Confirmar</button>
-        </form>
-      </div>
-    </div>
+    <Modal onClose={() => navigate(-1)} titleId="edit-profile-trainer-title" width="30%">
+      <h2 id="edit-profile-trainer-title">Editar Perfil</h2>
+      <form className="profile-trainer-popup-form" onSubmit={handleSubmit}>
+        <label>Nombre
+          <input name="name" value={form.name} onChange={handleChange} required />
+        </label>
+        <label>Apellido
+          <input name="lastName" value={form.lastName} onChange={handleChange} required />
+        </label>
+        <label>Email
+          <input name="email" type="email" value={form.email} onChange={handleChange} required />
+        </label>
+        <label>Teléfono
+          <input name="phone" value={form.phone} onChange={handleChange} required />
+        </label>
+        <label>Fecha de nacimiento
+          <input name="birthDate" type="date" value={form.birthDate} onChange={handleChange} required />
+        </label>
+        <label>CVU
+          <input name="cvu" value={form.cvu} onChange={handleChange} required />
+        </label>
+        <label>Descripción
+          <textarea name="description" value={form.description} onChange={handleChange} />
+        </label>
+        <button type="submit" className="profile-trainer-popup-submit-btn">Confirmar</button>
+      </form>
+    </Modal>
   );
 };
 

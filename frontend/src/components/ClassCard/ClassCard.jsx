@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import './ClassCard.css';
 import { useNavigate } from "react-router-dom";
+
 
 export default function ClassCard({ data }) {
   const instructor = data.instructor;
@@ -22,6 +23,27 @@ export default function ClassCard({ data }) {
 
   const navigate = useNavigate();
 
+  const [reviews, setReviews] = useState([]);
+const [avgRating, setAvgRating] = useState(0);
+
+useEffect(() => {
+  const fetchReviews = async () => {
+    try {
+      const res = await fetch(`http://localhost:5000/api/v1/reviews/trainer/${instructor._id}`);
+      const data = await res.json();
+      setReviews(data);
+      const avg = data.length > 0
+        ? data.reduce((sum, r) => sum + r.rating, 0) / data.length
+        : 0;
+      setAvgRating(avg);
+    } catch (error) {
+      console.error("Error cargando reviews", error);
+    }
+  };
+
+  if (instructor?._id) fetchReviews();
+}, [instructor?._id]);
+
   return (
     <article className="class-card" onClick={() => navigate(`/class/${data._id}`)}>
       <div className="class-card__images">
@@ -41,9 +63,8 @@ export default function ClassCard({ data }) {
       <div className="class-card__info">
         <h3 className="class-card__name">{instructorName}</h3>
 
-        <p className="class-card__rating" > 
-          ⭐ 4.0 <span style={{ color: "#bbb" }}>(16 opiniones)</span>
-        </p> 
+        <p className="class-card__rating">⭐ {avgRating.toFixed(1)} <span className="class-card-opinion-txt">({reviews.length} opiniones)</span></p>
+
         
         {(location || modality || description) && (
           <p className="class-card__location class-card__description">

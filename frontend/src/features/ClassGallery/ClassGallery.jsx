@@ -45,7 +45,6 @@ export default function ClassGallery({
     }
   };
 
-  // Primera carga
   useEffect(() => {
     fetch("http://localhost:5000/api/v1/services")
       .then((res) => res.json())
@@ -59,12 +58,10 @@ export default function ClassGallery({
       });
   }, []);
 
-  // Cuando se aplican filtros
   useEffect(() => {
     fetchFilteredClasses();
   }, [appliedFilters]);
 
-  // Filtro de búsqueda por texto libre
   const filteredClasses = classesData.filter((item) => {
     if (!searchText) return true;
     const text = searchText.toLowerCase();

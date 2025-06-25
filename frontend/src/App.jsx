@@ -21,7 +21,7 @@ import ProfileTrainerEdit from "./pages/profile/ProfileTrainerEdit";
 import SuccessScreen from "./pages/SuccessScreen/SuccessScreen";
 import ServicesHistory from "./pages/ServicesHistory/ServicesHistory";
 import TrainerArchive from "./components/profile/trainerView/trainerArchive";
-
+import TrainerRequests from "./features/profile/classRequests/TrainerRequests";
 
 function App() {
   return (
@@ -83,6 +83,13 @@ function App() {
             element={
               <PrivateRoute>
                 <TrainerArchive />
+              </PrivateRoute>} 
+          />
+          <Route 
+            path="/profile/trainer/requests" 
+            element={
+              <PrivateRoute>
+                <TrainerRequests />
               </PrivateRoute>} 
           />
 

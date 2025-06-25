@@ -39,3 +39,8 @@
   resize: vertical;
   outline: none;
 }
+
+.hire-class-form select option:disabled {
+  color: #888;
+  background-color: #333;
+}

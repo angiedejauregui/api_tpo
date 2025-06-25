@@ -42,6 +42,9 @@ const ProfileTrainerView = () => {
               <span className="material-symbols-outlined" >analytics</span>
               Estadísticas Del Perfil
             </button>
+            <button onClick={() => navigate("/profile/trainer/requests")}>
+              Ver solicitudes de clase
+            </button>
             <button className="action-btn " onClick={() => navigate("/profile/trainer/archive")}>
               <span className="material-symbols-outlined">schedule</span>
               Archivo

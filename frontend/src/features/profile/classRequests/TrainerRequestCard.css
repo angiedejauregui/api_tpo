@@ -1,0 +1,58 @@
+.trainer-request-card {
+  display: grid;
+  grid-template-columns: 3fr 2fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+  align-items: center;
+  background-color: #1a1a1a;
+  color: white;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.trainer-request-card > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.trainer-request-card strong {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.trainer-request-card small {
+  color: #ccc;
+}
+
+.trainer-request-card .status {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+}
+
+.trainer-request-card button {
+  background-color: #e0fd11;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 0.4rem;
+  transition: background-color 0.3s ease;
+}
+
+.trainer-request-card button:hover:not(:disabled) {
+  background-color: #c5db0a;
+}
+
+.trainer-request-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.trainer-request-card .actions {
+  display: flex;
+  gap: 0.5rem;
+}

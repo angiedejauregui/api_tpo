@@ -58,12 +58,11 @@ const getBookingsByClientId = async (req, res) => {
 
 const getBookingsByTrainerId = async (req, res) => {
   try {
-    const trainerId = req.userId; // o req.user._id si usás req.user
-    console.log("🔍 getBookingsByTrainer trainerId:", trainerId);
-
+    const trainerId = req.userId;
     const bookings = await Booking.find({ trainerId })
       .populate("clientId", "name lastName email profileImage")
-      .populate("serviceId");
+      .populate("serviceId")
+      .sort({ createdAt: -1 });
 
     return res.status(200).json(bookings);
   } catch (error) {

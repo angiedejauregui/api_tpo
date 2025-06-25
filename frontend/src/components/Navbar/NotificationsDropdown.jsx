@@ -21,8 +21,8 @@ export default function NotificationsDropdown({ token }) {
 
       const msg = notif.message.toLowerCase();
 
-      if ((msg.includes("aceptada") || msg.includes("cancelada")) && location.pathname !== "/history") {
-        navigate("/history");
+      if ((msg.includes("aceptada") || msg.includes("cancelada")) && location.pathname !== "/history/client") {
+        navigate("/history/client");
       } else if (msg.includes("nueva solicitud") && location.pathname !== "/profile/trainer/requests") {
         navigate("/profile/trainer/requests");
       }

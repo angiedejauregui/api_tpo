@@ -24,6 +24,7 @@ import ServicesHistoryTrainer from "./pages/ServicesHistory/ServicesHistoryTrain
 import ClientProfileTrainerView from "./pages/profile/ClientProfileTrainerView";
 import TrainerArchive from "./components/profile/trainerView/trainerArchive";
 import TrainerRequests from "./features/profile/classRequests/TrainerRequests";
+import TrainerStats from "./pages/stats/TrainerStats"; 
 
 function App() {
   return (
@@ -145,6 +146,15 @@ function App() {
           element={
             <PrivateRoute>
               <ProfileTrainerEdit />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/profile/trainer/stats"
+          element={
+            <PrivateRoute>
+              <TrainerStats />
             </PrivateRoute>
           }
         />

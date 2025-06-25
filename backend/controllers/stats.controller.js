@@ -15,16 +15,24 @@ const getTrainerStatsHandler = async (req, res) => {
   }
 };
 
-module.exports = { getTrainerStatsHandler };
-const { getTrainerStats } = require("../services/stats.service");*/
+module.exports = { getTrainerStatsHandler };*/
+const { getTrainerStats } = require("../services/stats.service");
 
 const getTrainerStatsHandler = async (req, res) => {
   try {
+    console.log("stat", req.params.trainerId);
     const stats = await getTrainerStats(req.params.trainerId);
     if (!stats) {
       return res.status(404).json({ message: "No se encontraron estadísticas para este entrenador" });
     }
+    
     res.json(stats);
+    /*const plainStats = stats.toObject(); // convierte el documento Mongoose en un objeto JS plano*/
+
+    // convertir el Map ratingsDistribution en un objeto plano
+    plainStats.ratingsDistribution = Object.fromEntries(stats.ratingsDistribution);
+
+    res.json(plainStats);
   } catch (error) {
     console.error("Error al obtener estadísticas:", error);
     res.status(500).json({ error: "Error al obtener estadísticas del entrenador" });

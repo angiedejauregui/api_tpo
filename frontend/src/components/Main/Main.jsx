@@ -4,6 +4,7 @@ import ClassGallery from "../../features/ClassGallery/ClassGallery";
 
 export default function Main() {
   const [showModal, setShowModal] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   const [filters, setFilters] = useState({
     category: [],
@@ -13,7 +14,7 @@ export default function Main() {
     minPrice: "",
     maxPrice: "",
     minRating: "",
-    maxRating: ""
+    maxRating: "",
   });
 
   const [appliedFilters, setAppliedFilters] = useState({ ...filters });
@@ -23,7 +24,7 @@ export default function Main() {
       ...appliedFilters,
       [key]: Array.isArray(appliedFilters[key])
         ? appliedFilters[key].filter((v) => v !== value)
-        : ""
+        : "",
     };
 
     setAppliedFilters(updated);
@@ -35,6 +36,7 @@ export default function Main() {
         onOpenFilter={() => setShowModal(true)}
         clearFilter={clearFilter}
         filters={appliedFilters}
+        onSearch={setSearchText}
       />
       <ClassGallery
         showModal={showModal}
@@ -43,6 +45,7 @@ export default function Main() {
         setFilters={setFilters}
         appliedFilters={appliedFilters}
         setAppliedFilters={setAppliedFilters}
+        searchText={searchText}
       />
     </>
   );

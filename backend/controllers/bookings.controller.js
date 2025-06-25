@@ -8,16 +8,17 @@ const Booking = require('../models/bookings.model');
 const Service = require('../models/class.model');
 const User = require('../models/user.model');
 const notificationsService = require("../services/notifications.service");
+const { createNotification } = require("../services/notifications.service");
 
 const createBooking = async (req, res) => {
   try {
     const booking = await createBookingService(req.body, req.userId);
 
-    // Notificación al entrenador que tiene una nueva solicitud
-    await sendNotification(
-      booking.trainerId,
-      `Nueva solicitud de clase para ${booking.serviceId?.category ?? ""}`
-    );
+    await createNotification({
+      userId: booking.trainerId,
+      message: `Nueva solicitud de clase para ${booking.serviceId?.category ?? ""}`
+    });
+
     
     res.status(201).json({
       message: 'Reserva creada correctamente',
@@ -103,17 +104,17 @@ const updateBooking = async (req, res) => {
   }
 };
 
-const { sendNotification } = require("../services/notifications.service");
 const { populate } = require('../models/notification.model');
 
 const acceptBooking = async (req, res) => {
   try {
     const booking = await acceptBookingService(req.params.id);
-    // Enviar notificación al cliente que la solicitud fue aceptada
-    await sendNotification(
-      booking.clientId,
-      `Tu solicitud para la clase ${booking.serviceId?.category ?? ""} fue aceptada`
-    );
+    
+    await createNotification({
+      userId: booking.clientId,
+      message: `Tu solicitud para la clase ${booking.serviceId?.category ?? ""} fue aceptada`
+    });
+    
     res.status(200).json({ booking });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -124,11 +125,10 @@ const cancelBooking = async (req, res) => {
   try {
     const booking = await cancelBookingService(req.params.id);
 
-    // Enviar notificación al cliente que la solicitud fue cancelada
-    await sendNotification(
-      booking.clientId,
-      `Tu solicitud para la clase ${booking.serviceId?.category ?? ""} fue cancelada`
-    );
+    await createNotification({
+      userId: booking.clientId,
+      message: `Tu solicitud para la clase ${booking.serviceId?.category ?? ""} fue cancelada`
+    });
 
     res.status(200).json({
       message: `Solicitud cancelada para ${booking.clientId?.name}`,

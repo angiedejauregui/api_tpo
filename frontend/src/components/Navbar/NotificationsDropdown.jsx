@@ -21,10 +21,10 @@ export default function NotificationsDropdown({ token }) {
 
       const msg = notif.message.toLowerCase();
 
-      if ((msg.includes("aceptada") || msg.includes("cancelada")) && location.pathname !== "/services-history") {
-        navigate("/services-history");
-      } else if (msg.includes("nueva solicitud") && location.pathname !== "/trainer/requests") {
-        navigate("/trainer/requests");
+      if ((msg.includes("aceptada") || msg.includes("cancelada")) && location.pathname !== "/history") {
+        navigate("/history");
+      } else if (msg.includes("nueva solicitud") && location.pathname !== "/profile/trainer/requests") {
+        navigate("/profile/trainer/requests");
       }
       
       setOpen(false);

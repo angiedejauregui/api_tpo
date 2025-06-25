@@ -12,7 +12,7 @@ const createNotification = async (req, res) => {
 
 const getUserNotifications = async (req, res) => {
   try {
-    const notifs = await Notification.find({ userId: req.user.id }).sort({ createdAt: -1 });
+    const notifs = await Notification.find({ userId: req.userId }).sort({ createdAt: -1 });
     res.status(200).json(notifs);
   } catch (err) {
     res.status(500).json({ error: err.message });

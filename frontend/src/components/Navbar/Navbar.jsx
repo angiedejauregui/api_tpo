@@ -13,6 +13,7 @@ const Navbar = () => {
   const buttonRef = useRef();
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
   const user = useSelector((state) => state.auth.user);
   const initial = user?.name?.charAt(0).toUpperCase();
 
@@ -75,7 +76,7 @@ const Navbar = () => {
             <PiHouse className="icon" />
           </div>
           <div className="btn">
-            <NotificationsDropdown token={user?.token} />
+            <NotificationsDropdown token={token} />
           </div>
 </>
           )}

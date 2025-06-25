@@ -1,7 +1,6 @@
 const BASE_URL = "http://localhost:5000/api/v1/bookings";
 
 export async function getBookingsByTrainer(trainerId, token) {
-  console.log(token)
   const res = await fetch(`${BASE_URL}/by-trainer?trainerId=${trainerId}`, {
     headers: {
       Authorization: `Bearer ${token}`,

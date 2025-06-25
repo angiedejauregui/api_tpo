@@ -4,12 +4,13 @@ import "./TrainerRequestCard.css";
 
 export default function TrainerRequestCard({ data, onRespond }) {
   const [loading, setLoading] = useState(false);
-  const user = JSON.parse(localStorage.getItem("user")); // si no querés usar useSelector
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
 
   const handleAction = async (action) => {
     setLoading(true);
     try {
-      const updated = await respondToBooking(data._id, action, user.token);
+      const updated = await respondToBooking(data._id, action, token);
       onRespond(updated.booking);
     } catch (err) {
       alert("Error al procesar la solicitud");

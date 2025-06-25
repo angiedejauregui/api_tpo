@@ -9,10 +9,6 @@ async function getUserNotifications(userId) {
   return await Notification.find({ userId }).sort({ createdAt: -1 });
 }
 
-async function sendNotification(userId, message) {
-  return await Notification.create({ userId, message });
-}
-
 async function fetchNotifications(userId) {
   return await Notification.find({ userId }).sort({ createdAt: -1 });
 }
@@ -20,6 +16,5 @@ async function fetchNotifications(userId) {
 module.exports = {
   createNotification,
   getUserNotifications,
-  sendNotification,
   fetchNotifications
 };

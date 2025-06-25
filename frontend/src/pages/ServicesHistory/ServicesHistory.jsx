@@ -46,11 +46,14 @@ export default function ServicesHistory() {
       await axios.post(
         "http://localhost:5000/api/v1/reviews",
         {
+          trainerId: selectedBooking.trainerId._id,
           bookingId: selectedBooking._id,
           comment,
           rating,
         },
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
   
       setShowCommentModal(false);

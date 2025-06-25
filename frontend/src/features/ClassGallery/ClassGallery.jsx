@@ -16,32 +16,36 @@ export default function ClassGallery({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchFilteredClasses = (customFilters = appliedFilters) => {
-    const params = new URLSearchParams();
+  const fetchFilteredClasses = async (customFilters = appliedFilters) => {
+    try {
+      const params = new URLSearchParams();
 
-    if (customFilters.category.length)
-      params.append("category", customFilters.category.join(","));
-    if (customFilters.zone.length)
-      params.append("zone", customFilters.zone.join(","));
-    if (customFilters.language.length)
-      params.append("language", customFilters.language.join(","));
-    if (customFilters.mode.length)
-      params.append("mode", customFilters.mode.join(","));
-    if (customFilters.minPrice)
-      params.append("minPrice", customFilters.minPrice);
-    if (customFilters.maxPrice)
-      params.append("maxPrice", customFilters.maxPrice);
-    if (customFilters.minRating)
-      params.append("minRating", customFilters.minRating);
-    if (customFilters.maxRating)
-      params.append("maxRating", customFilters.maxRating);
+      if (customFilters.category?.length)
+        params.append("category", customFilters.category.join(","));
+      if (customFilters.location?.length)
+        params.append("zone", customFilters.zone.join(","));
+      if (customFilters.zone?.length)
+        params.append("language", customFilters.language.join(","));
+      if (customFilters.modality?.length)
+        params.append("modality", customFilters.modality.join(","));
+      if (customFilters.minPrice)
+        params.append("minPrice", customFilters.minPrice);
+      if (customFilters.maxPrice)
+        params.append("maxPrice", customFilters.maxPrice);
+      if (customFilters.minRating)
+        params.append("minRating", customFilters.minRating);
+      if (customFilters.maxRating)
+        params.append("maxRating", customFilters.maxRating);
 
-    fetch(`http://localhost:5000/api/v1/services?${params.toString()}`)
-      .then((res) => res.json())
-      .then((data) => setClassesData(data))
-      .catch((err) => setError(err.message));
+      const res = await fetch(`http://localhost:5000/api/v1/services?${params.toString()}`);
+      const data = await res.json();
+      setClassesData(data);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
+  // Primera carga
   useEffect(() => {
     fetch("http://localhost:5000/api/v1/services")
       .then((res) => res.json())
@@ -55,15 +59,18 @@ export default function ClassGallery({
       });
   }, []);
 
+  // Cuando se aplican filtros
   useEffect(() => {
     fetchFilteredClasses();
   }, [appliedFilters]);
 
+  // Filtro de búsqueda por texto libre
   const filteredClasses = classesData.filter((item) => {
+    if (!searchText) return true;
     const text = searchText.toLowerCase();
     return (
-      item.category.toLowerCase().includes(text) ||
-      item.description.toLowerCase().includes(text) ||
+      item.category?.toLowerCase().includes(text) ||
+      item.description?.toLowerCase().includes(text) ||
       item.instructor?.name?.toLowerCase().includes(text) ||
       item.instructor?.lastName?.toLowerCase().includes(text) ||
       item.location?.toLowerCase().includes(text) ||

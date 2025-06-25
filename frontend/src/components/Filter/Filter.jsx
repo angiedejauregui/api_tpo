@@ -124,8 +124,8 @@ export default function Filter({
             <label key={mode}>
               <input
                 type="checkbox"
-                checked={filters.mode.includes(mode)}
-                onChange={() => handleCheckbox("mode", mode)}
+                checked={filters.modality.includes(mode)}
+                onChange={() => handleCheckbox("modality", mode)}
               />
               {mode}
             </label>

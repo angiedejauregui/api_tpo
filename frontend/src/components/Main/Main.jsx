@@ -10,7 +10,7 @@ export default function Main() {
     category: [],
     zone: [],
     language: [],
-    mode: [],
+    modality: [],
     minPrice: "",
     maxPrice: "",
     minRating: "",
@@ -20,15 +20,23 @@ export default function Main() {
   const [appliedFilters, setAppliedFilters] = useState({ ...filters });
 
   const clearFilter = (key, value) => {
-    const updated = {
-      ...appliedFilters,
-      [key]: Array.isArray(appliedFilters[key])
-        ? appliedFilters[key].filter((v) => v !== value)
-        : "",
-    };
+  setAppliedFilters((prev) => {
+    if (Array.isArray(prev[key])) {
+      return { ...prev, [key]: prev[key].filter((v) => v !== value) };
+    } else {
+      return { ...prev, [key]: "" };
+    }
+  });
 
-    setAppliedFilters(updated);
-  };
+  setFilters((prev) => {
+    if (Array.isArray(prev[key])) {
+      return { ...prev, [key]: prev[key].filter((v) => v !== value) };
+    } else {
+      return { ...prev, [key]: "" };
+    }
+  });
+};
+
 
   return (
     <>

@@ -27,7 +27,7 @@ export default function Banner({
     addTags("category");
     addTags("zone");
     addTags("language");
-    addTags("mode");
+    addTags("modality");
     addTags("minPrice", (v) => `Precio desde $${v}`);
     addTags("maxPrice", (v) => `Precio hasta $${v}`);
     addTags("minRating", (v) => `⭐ desde ${v}`);

@@ -11,7 +11,7 @@ export default function EditClassInfo({ classData, onClose, onSave }) {
     language: classData.language || "",
     location: classData.location || "",
     capacity: classData.capacity || 1,
-    attachmentLink: classData.archivosAdjuntos || "",
+    attachmentLink: classData.attachmentLink || "",
     schedule: typeof classData.schedule === "string"
       ? JSON.parse(classData.schedule)
       : classData.schedule || [{ day: "", from: "", to: "" }],

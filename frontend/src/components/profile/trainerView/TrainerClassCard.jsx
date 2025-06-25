@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import "./TrainerClassCard.css";
 import EditClassInfo from "./EditClassInfo.jsx";
+import { updateClass } from "../../../features/updateClases";
 
-export default function TrainerClassCard({ data }) {
+export default function TrainerClassCard({ data, onUpdate }) {
 
   const user = useSelector((state) => state.auth.user);
   const classImage = data.images?.[0] || null;
@@ -14,8 +15,12 @@ export default function TrainerClassCard({ data }) {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef();
 
+  const [classData, setClassData] = useState(data);
   const [showEditForm, setShowEditForm] = useState(false);
-  const [classData, setClassData] = useState(null);
+
+  useEffect(() => {
+    setClassData(data);
+  }, [data]);
 
   const handleOptions = (e) => {
     e.stopPropagation();
@@ -25,7 +30,6 @@ export default function TrainerClassCard({ data }) {
   const handleEdit = (e) => {
     e.stopPropagation();
     setShowMenu(false);
-    setClassData(data); 
     setShowEditForm(true);
   };
 
@@ -35,34 +39,14 @@ export default function TrainerClassCard({ data }) {
     alert("Eliminar clase");
   };
 
-  const handleSaveClassChanges = async (updatedData, imageFile) => {
-    const form = new FormData();
-
-    form.append("category", updatedData.category);
-    form.append("description", updatedData.description);
-    form.append("price", updatedData.price);
-    form.append("modality", updatedData.modality);
-    form.append("language", updatedData.language);
-    form.append("location", updatedData.location);
-    form.append("capacity", updatedData.capacity);
-    form.append("attachmentLink", updatedData.attachmentLink || "");
-    form.append("schedule", JSON.stringify(updatedData.schedule));
-
-    if (imageFile) {
-      form.append("images", imageFile);
-    }
-
+  const handleSaveClassChanges = async (updatedData, imageFile ) => {
     try {
-      await fetch(`http://localhost:5000/api/v1/services/${data._id}`, {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: form,
-      });
+      const updatedClass = await updateClass(classData._id, updatedData, imageFile, user.token);
 
+      setClassData(updatedClass);
       setShowEditForm(false);
 
+      if (onUpdate) onUpdate(updatedClass);
     } catch (err) {
       alert("Error al guardar los cambios");
       console.error(err);
@@ -152,7 +136,7 @@ export default function TrainerClassCard({ data }) {
       <EditClassInfo
         classData={classData}
         onClose={() => setShowEditForm(false)}
-        onSave={handleSaveClassChanges}
+        onSave={(data, file) => handleSaveClassChanges(data, file, classData._id)}
       />)}
     </>
   );

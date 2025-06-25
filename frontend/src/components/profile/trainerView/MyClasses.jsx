@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import TrainerClassCard from "./TrainerClassCard";
 import "./MyClasses.css";
+import { fetchClassesByInstructor } from "../../../features/updateClases";
 
 export default function MyClasses() {
   const [myClasses, setMyClasses] = useState([]);
@@ -14,14 +15,9 @@ export default function MyClasses() {
   useEffect(() => {
     if (!userId) return;
 
-    const fetchMyClasses = async () => {
+    const loadClasses = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/v1/services/by-instructor?instructor=${user.id}`, {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-        const data = await res.json();
+        const data = await fetchClassesByInstructor(userId, user.token);
         setMyClasses(data);
       } catch (err) {
         setError("Error al cargar tus clases");
@@ -30,7 +26,7 @@ export default function MyClasses() {
       }
     };
 
-    fetchMyClasses();
+    loadClasses();
   }, [userId]);
 
   if (loading) return <p>Cargando tus clases...</p>;
@@ -43,7 +39,15 @@ export default function MyClasses() {
       ) : (
         <div className="class-grid">
           {myClasses.map((classItem) => (
-            <TrainerClassCard key={classItem._id} data={classItem} />
+            <TrainerClassCard 
+              key={classItem._id} 
+              data={classItem} 
+              onUpdate={(updatedClass) => {
+                setMyClasses((prev) =>
+                  prev.map((cls) => (cls._id === updatedClass._id ? updatedClass : cls))
+                );
+              }}
+            />
           ))}
         </div>
       )}

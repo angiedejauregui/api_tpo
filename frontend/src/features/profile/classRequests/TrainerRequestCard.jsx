@@ -23,22 +23,64 @@ export default function TrainerRequestCard({ data, onRespond }) {
     ?.map((slot) => `${slot.day} ${slot.from}-${slot.to}`)
     .join(", ");
 
+  const statusColors = {
+    Pendiente: "#FB9607",
+    Confirmada: "#27922D",
+    Cancelada: "#c0392b",
+  };
+
   return (
-    <div className="trainer-request-card">
-        <div>
-            <strong>{data.serviceId?.category}</strong>
-            <small>{horario}</small>
+    <div className="request-card">
+      <div className="column">
+        <h4 className="category">{data.serviceId?.category}</h4>
+        
+        <div className="time-row">
+          <span className="material-symbols-outlined icon-time">schedule</span>
+          <p className="slots"> 
+            {(() => {
+              try {
+                const s = JSON.parse(data.selectedSlots);
+                return `${s.day}: ${s.from} - ${s.to}`;
+              } catch (err) {
+                return "Horario no válido";
+              }
+            })()}
+          </p>
         </div>
-        <div>{data.clientId?.name || "Sin nombre"}</div>
-        <div>
-            <div className="status">{data.status}</div>
-            {data.status === "Pendiente" && (
-            <div className="actions">
-                <button disabled={loading} onClick={() => handleAction("accept")}>Aceptar</button>
-                <button disabled={loading} onClick={() => handleAction("cancel")}>Cancelar</button>
-            </div>
-            )}
-        </div>
+        
+      </div>
+
+      <div className="column">
+        <p> Alumno: {data.clientId?.name} {data.clientId?.lastName}</p>
+      </div>
+
+      <div className="column status-actions">
+        <span
+          className="status"
+          style={{ backgroundColor: statusColors[data.status] }}
+        >
+          {data.status}
+        </span>
+
+        {data.status === "Pendiente" && (
+          <div className="buttons">
+            <button
+              className="accept"
+              onClick={() => handleAction("accept")}
+              disabled={loading}
+            >
+              Aceptar
+            </button>
+            <button
+              className="cancel"
+              onClick={() => handleAction("cancel")}
+              disabled={loading}
+            >
+              Cancelar
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

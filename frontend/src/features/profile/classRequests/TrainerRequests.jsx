@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getBookingsByTrainer } from "./RequestService.js";
 import TrainerRequestCard from "./TrainerRequestCard";
+import "./TrainerRequests.css";
 
 function formatDateGroup(date) {
   const today = new Date();
@@ -61,18 +62,21 @@ export default function TrainerRequests() {
         {requests.length === 0 ? (
         <p>No tenés solicitudes pendientes.</p>
         ) : (
-        Object.entries(grouped).map(([dateGroup, bookings]) => (
-            <div key={dateGroup}>
-            <h2>{dateGroup}</h2>
-            {bookings.map((booking) => (
-                <TrainerRequestCard
-                key={booking._id}
-                data={booking}
-                onRespond={handleResponse}
-                />
+          <>
+            <h1 className="requests-title">Solicitudes</h1>
+            {Object.entries(grouped).map(([dateGroup, bookings]) => (
+                <div key={dateGroup}>
+                <h2>{dateGroup}</h2>
+                {bookings.map((booking) => (
+                    <TrainerRequestCard
+                    key={booking._id}
+                    data={booking}
+                    onRespond={handleResponse}
+                    />
+                ))}
+                </div>
             ))}
-            </div>
-        ))
+          </>
         )}
     </section>
   );

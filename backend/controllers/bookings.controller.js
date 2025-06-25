@@ -46,7 +46,8 @@ const getBookingsByClientId = async (req, res) => {
     const populatedBookings = await Booking.find({ clientId: userId })
     /*const populatedBookings = await Booking.find({ clientId: userId })*/
       .populate("serviceId")
-      .populate("trainerId");
+      .populate("trainerId")
+      .sort({ createdAt: -1 });
       
     return res.status(200).json(populatedBookings);
   } catch (error) {

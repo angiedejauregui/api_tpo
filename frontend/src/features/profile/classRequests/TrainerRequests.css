@@ -1,0 +1,15 @@
+.requests-title{
+    text-transform: capitalize;
+    font-weight: 300;
+}
+
+.trainer-requests h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  margin: 30px 0 10px;
+  padding-left: 12px;
+  text-align: left;
+  text-transform: capitalize;
+  padding-left: 20%;
+}

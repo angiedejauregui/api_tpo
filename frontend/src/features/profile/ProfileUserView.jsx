@@ -133,7 +133,7 @@ const ProfileUserView = () => {
                   <h4>{serviceId?.category}</h4>
                   <p>Profe {trainerId?.name} {trainerId?.lastName}</p>
                   <p>{diasYHoras}</p>
-                  <Link className="profile-user-view-btn-more" to="/history">
+                  <Link className="profile-user-view-btn-more" to="/history/client">
                     Ver más
                   </Link>
                 </div>
